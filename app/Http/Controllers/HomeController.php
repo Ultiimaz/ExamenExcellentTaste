@@ -26,14 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-//        $test1 = Reservation::find(12345679)->customer();
-
-//        $flights = Order::findOrFail([1, 21578, 2400]);
-        $flights= Order::where('device', 1)->where('timestamp', 21578)->where('productnummer', 2400)->get();
-//        dd(new Order);
-        dd($flights);
-
         return view('home');
 
     }

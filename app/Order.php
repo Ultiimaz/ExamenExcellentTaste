@@ -14,16 +14,12 @@ class Order extends Model
 
     public function orderpick()
     {
-        return $this->hasOne('App\OrderPick', 'device', 'device')->get();
+        return $this->hasMany('App\Reservering', 'reserveernummer', 'reserveernummer')->get();
     }
-    public function orderpicktimestamp(){
-        return $this->hasOne('App\OrderPick', 'timestamp', 'timestamp')->get();
-    }
+
     public function product(){
         return $this->hasOne('App\Producten', 'productnummer', 'productnummer')->get();
 
-
     }
-//    }
 }
 
