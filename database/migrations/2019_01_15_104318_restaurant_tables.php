@@ -22,19 +22,20 @@ class RestaurantTables extends Migration
         });
         //klantgegevens
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('klantnummer');
+            $table->increments('id');
+            $table->string('klantnummer')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('achternaam');
+            $table->string('voorvoegsel')->nullable();
+            $table->string('voorletter');
+            $table->string('adres');
+            $table->string('postcode');
+            $table->string('plaats');
+            $table->string('telefoon')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->string('voornaam',50);
-            $table->string('tussenvoegsel', 10)->nullable();
-            $table->string('achternaam', 20);
-            $table->string('voorletter', 10);
-            $table->string('adres', 100);
-            $table->string('postcode', 4);
-            $table->string('plaats', 100);
         });
 
 
