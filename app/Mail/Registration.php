@@ -11,14 +11,16 @@ class Registration extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $klantnummer;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->klantnummer = $data;
     }
 
     /**
@@ -28,6 +30,9 @@ class Registration extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.registration');
+        return $this->view('emails.registration')
+            ->with([
+                'klantnummer' => $this->klantnummer
+            ]);
     }
 }

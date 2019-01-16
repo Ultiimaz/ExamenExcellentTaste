@@ -165,7 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-
         'Buzz\LaravelGoogleCaptcha\CaptchaServiceProvider',
 
         /*
@@ -225,7 +224,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Captcha' => '\Buzz\LaravelGoogleCaptcha\CaptchaFacade',
+        'Captcha' => '\Buzz\LaravelGoogleCaptcha\CaptchaFacade'
     ],
 
 ];
