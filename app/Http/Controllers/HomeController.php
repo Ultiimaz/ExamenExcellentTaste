@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Reservation;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        //$phone = Reservation::find(12345678)->customer();
+        //dd($phone);
+
         return view('home');
+
     }
 }
