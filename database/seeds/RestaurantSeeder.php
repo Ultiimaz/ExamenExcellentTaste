@@ -23,10 +23,9 @@ class RestaurantSeeder extends Seeder
              DB::table('users')->insert([
                 'password'=> $faker->password,
                 'klantnummer' => 1000+$i,
-                'voornaam' => $faker->firstName(),
-                'tussenvoegsel' => '',
                 'achternaam' => 'haoo',
                 'voorletter' => $faker->randomLetter(),
+                'voorvoegsel'=> $faker->randomLetter(),
                 'adres' => $faker->address(),
                 'postcode' => '7d',
                 'plaats' => $faker->city(),
