@@ -25,8 +25,8 @@ class HomeController extends Controller
     public function index()
     {
 
-        //$phone = Reservation::find(12345678)->customer();
-        //dd($phone);
+        $phone = Reservation::find(12345679)->customer();
+        dd($phone);
 
         return view('home');
 
