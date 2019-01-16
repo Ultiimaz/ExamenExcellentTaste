@@ -44,14 +44,9 @@ class RestaurantSeeder extends Seeder
                 'productnummer' => 2400+$i,
                 'prijsbetaald' => '0,00',
                 'aantalbesteld' => 2,
-            ]);
-
-            DB::table('bestellingopnames')->insert([
-                'device' => 1+$i,
-                'timestamp' => $faker->date(),
                 'reserveernummer' => 12345678+$i,
-            ]);
 
+            ]);
 
              DB::table('tafelgegevens')->insert([
                 'tafelnummer' => 1,
