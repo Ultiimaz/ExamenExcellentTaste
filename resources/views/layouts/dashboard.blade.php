@@ -32,9 +32,10 @@
                         <!-- User Profile-->
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Home</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Profiel</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-border-all"></i><span class="hide-menu">Menu</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-border-all"></i><span class="hide-menu">Menukaart</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Reserveren</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Beheerder</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/contact" aria-expanded="false"><i class="mdi mdi-at"></i><span class="hide-menu">Contact</span></a></li>
                     </ul>
 
                 </nav>
@@ -43,16 +44,15 @@
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row align-items-center">
-                    <div class="col-5">
-                        <h4 class="page-title">Home</h4>
-                    </div>
+
                 </div>
             </div>
+
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-
+            @yield('page')
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
@@ -72,12 +72,6 @@
         <!-- ============================================================== -->
     </div>
 
-    You are logged in!
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
 
 
 @endsection
