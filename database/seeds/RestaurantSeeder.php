@@ -20,7 +20,8 @@ class RestaurantSeeder extends Seeder
                 'aantalgasten' => 6,
                 'klantnummer' => 1000+$i,
             ]);
-             DB::table('klantgegevens')->insert([
+             DB::table('users')->insert([
+                'password'=> $faker->password,
                 'klantnummer' => 1000+$i,
                 'voornaam' => $faker->firstName(),
                 'tussenvoegsel' => '',
