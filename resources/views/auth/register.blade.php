@@ -31,6 +31,9 @@
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
+                                <p id="passwordHelpBlock" class="form-text text-muted">
+                                    Uw wachtwoord moet langer zijn dan 8 tekens, moet ten minste 1 hoofdletter, 1 kleine letter, 1 numeriek teken en 1 speciaal teken bevatten.
+                                </p>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
@@ -123,6 +126,14 @@
                                         <strong>{{ $errors->first('telefoon') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row ">
+                            <label class="col-md-4 col-form-label text-md-right"></label>
+
+                            <div class="col-md-6">
+                                {!! Captcha::display() !!}
                             </div>
                         </div>
 

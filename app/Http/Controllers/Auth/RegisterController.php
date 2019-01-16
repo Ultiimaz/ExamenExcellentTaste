@@ -32,6 +32,13 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
+     * Random klantnummer a customer receives after registration
+     *
+     * @var string
+     */
+    public $klantnummer;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -58,7 +65,8 @@ class RegisterController extends Controller
             'adres' => ['required', 'string', 'regex:/^([1-9][e][\s])*([a-zA-Z]+(([\.][\s])|([\s]))?)+[1-9][0-9]*(([-][1-9][0-9]*)|([\s]?[a-zA-Z]+))?$/i'],
             'postcode' => ['required', 'string', 'regex:/^[1-9][0-9]{3}[\s]?[A-Za-z]{2}$/i'],
             'plaats' => ['required', 'string', 'max:255'],
-            'telefoon' => ['required', 'string']
+            'telefoon' => ['required', 'string'],
+            'g-recaptcha-response' => 'required|captcha'
         ]);
     }
 
@@ -70,8 +78,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $this->klantnummer = $this->generateKlantnummer();
+
         return User::create([
-            'klantnummer' => $this->generateKlantnummer(),
+            'klantnummer' => $this->klantnummer,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'achternaam' => $data['achternaam'],
