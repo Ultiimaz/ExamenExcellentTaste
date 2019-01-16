@@ -11,11 +11,11 @@ class Reservation extends Model
     protected $primaryKey = 'reserveernummer';
     public $timestamps = false;
     public $incrementing = false;
-
+    protected $fillable = ['aantal_gasten, tijd, datum'];
 
     public function customer()
     {
-        return $this->hasOne('App\Customers', 'klantnummer', 'klantnummer')->get();
+        return $this->hasOne('App\User', 'klantnummer', 'klantnummer')->get();
 
     }
 
