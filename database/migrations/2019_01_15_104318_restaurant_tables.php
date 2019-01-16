@@ -33,6 +33,12 @@ class RestaurantTables extends Migration
             $table->string('email', 255);
         });
 
+        Schema::create('bestellingopnames', function (Blueprint $table) {
+            $table->integer('device');          //pk, fk
+            $table->string('timestamp');     //pk, fk
+            $table->integer('reserveernummer');
+
+        });
 
         Schema::create('producten', function (Blueprint $table) {
             $table->integer('productnummer');   //Pk
@@ -41,13 +47,11 @@ class RestaurantTables extends Migration
 
         });
         Schema::create('bestellingen', function (Blueprint $table) {
-            $table->integer('device');          //pk
-            $table->string('timestamp');     //pk
+            $table->integer('device');          //pk, fk
+            $table->string('timestamp');     //pk, fk
             $table->integer('productnummer');   //pk, fk
             $table->string('prijsbetaald');
             $table->integer('aantalbesteld');
-            $table->integer('reserveernummer'); //FK
-
 
         });
         Schema::create('tafelgegevens', function (Blueprint $table) {
