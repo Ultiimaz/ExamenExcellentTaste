@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderPick extends Model
 {
-    protected $table = 'bestelopnames';
+    protected $table = 'bestellingopnames';
     protected $primaryKey = ['device', 'timestamp'];
     public $incrementing = false;
 
 
     public function reservation()
     {
-        return $this->belongsToMany('App\Reservation', 'reserveernummer', 'reserveernummer')->get();
+        return $this->hasMany('App\Reservation', 'reserveernummer', 'reserveernummer')->get();
     }
 }

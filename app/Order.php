@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 
-    protected $table = 'bestellignen';
+    protected $table = 'bestellingen';
     protected $primaryKey = ['device', 'timestamp', 'productnummer'];
     public $incrementing = false;
 
 
-    public function orderpickdevice()
+    public function orderpick()
     {
         return $this->hasOne('App\OrderPick', 'device', 'device')->get();
     }
@@ -22,8 +22,8 @@ class Order extends Model
     public function product(){
         return $this->hasOne('App\Producten', 'productnummer', 'productnummer')->get();
 
+
     }
-
+//    }
 }
-
 

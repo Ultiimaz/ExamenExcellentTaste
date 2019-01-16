@@ -40,7 +40,7 @@ class RestaurantSeeder extends Seeder
             ]);
             DB::table('bestellingen')->insert([
                 'device' => 1+$i,
-                'timestamp' => $faker->date(),
+                'timestamp' => 21578,
                 'productnummer' => 2400+$i,
                 'prijsbetaald' => '0,00',
                 'aantalbesteld' => 2,
@@ -48,7 +48,7 @@ class RestaurantSeeder extends Seeder
 
             DB::table('bestellingopnames')->insert([
                 'device' => 1+$i,
-                'timestamp' => $faker->date(),
+                'timestamp' => 21578,
                 'reserveernummer' => 12345678+$i,
             ]);
 

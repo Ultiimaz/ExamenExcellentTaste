@@ -6,5 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class TableReservation extends Model
 {
-    //
+    protected $table = 'tafelreserveringen';
+    protected $primaryKey = ['reserveernummer', 'tafelnummer'];
+    public $incrementing = false;
+
+
+    public function reservation()
+    {
+        return $this->hasMany('App\Reservation', 'reserveernummer', 'reserveernummer')->get();
+    }
+
+    public function table(){
+        return $this->hasOne('App\TableData', 'tafelnummer', 'tafelnummer')->get();
+
+    }
+
 }

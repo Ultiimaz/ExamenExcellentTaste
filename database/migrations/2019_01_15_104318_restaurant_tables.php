@@ -35,7 +35,7 @@ class RestaurantTables extends Migration
 
         Schema::create('bestellingopnames', function (Blueprint $table) {
             $table->integer('device');          //pk, fk
-            $table->string('timestamp');     //pk, fk
+            $table->integer('timestamp');     //pk, fk
             $table->integer('reserveernummer');
 
         });
@@ -48,7 +48,7 @@ class RestaurantTables extends Migration
         });
         Schema::create('bestellingen', function (Blueprint $table) {
             $table->integer('device');          //pk, fk
-            $table->string('timestamp');     //pk, fk
+            $table->integer('timestamp');     //pk, fk
             $table->integer('productnummer');   //pk, fk
             $table->string('prijsbetaald');
             $table->integer('aantalbesteld');

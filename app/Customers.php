@@ -9,4 +9,6 @@ class Customers extends Model
     protected $table = 'klantgegevens';
     protected $primaryKey = 'klantnummer';
     public $timestamps = false;
+    public $incrementing = false;
+
 }
