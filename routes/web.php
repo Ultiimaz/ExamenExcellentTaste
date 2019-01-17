@@ -21,15 +21,22 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::get('/profiel', function () {
-    return view('profiel');
+
+Route::get('/menukaart', function () {
+    return view('menukaart');
+});
+Route::get('/beheerder', function () {
+    return view('beheerder');
 });
 //Route::get('/profiel', function () {
-//
-//    $klantgegevens = DB::table('users')->get();
-//
-//    return view('/profiel', ['/profiel' => $klantgegevens]);
+//    return view('profiel');
 //});
+Route::get('/profiel', function () {
+
+    $user = Auth::user();
+
+    return view('/profiel', ['user' => $user]);
+});
 
 Route::post('/reserveer/create','ReserveerController@create');
 Route::middleware('auth:web')->group(function()

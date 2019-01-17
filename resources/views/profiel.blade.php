@@ -11,17 +11,22 @@
                         </div>
                     </div>
                     <div class="row">
-                        <!-- column -->
-                        {{--@foreach($klantgegevens as $key => $data)--}}
-                            {{--<tr>--}}
-                                {{--<th>{{$data->klantnummer}}</th>--}}
-                                {{--<th>{{$data->email}}</th>--}}
-                                {{--<th>{{$data->voorletter}}</th>--}}
-                                {{--<th>{{$data->voorvoegsel}}</th>--}}
-                                {{--<th>{{$data->achternaam}}</th>--}}
-                            {{--</tr>--}}
-                        {{--@endforeach--}}
-
+                        <table>
+                            <tr>
+                                <th>Klantnummer:</th>
+                                <th>Email:</th>
+                                <th>Voorletter:</th>
+                                <th>Voorvoegsel:</th>
+                                <th>Achternaam:</th>
+                            </tr>
+                            <tr>
+                                <td>{{$user->klantnummer}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{$user->voorletter}}</td>
+                                <td>{{$user->voorvoegsel}}</td>
+                                <td>{{$user->achternaam}}</td>
+                            </tr>
+                        </table>
 
                         <!-- column -->
                     </div>
