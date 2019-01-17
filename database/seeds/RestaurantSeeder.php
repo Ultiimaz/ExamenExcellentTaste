@@ -17,7 +17,7 @@ class RestaurantSeeder extends Seeder
             DB::table('reserveringen')->insert([
                 'reserveernummer' => 12345678+$i,
                 'datum' => $faker->date(),
-                'tijd' => $faker->time(),
+                'tijd' => 12+$i,
                 'aantalgasten' => 6,
                 'klantnummer' => 1000+$i,
             ]);
@@ -41,7 +41,7 @@ class RestaurantSeeder extends Seeder
             ]);
             DB::table('bestellingen')->insert([
                 'device' => 1+$i,
-                'timestamp' => 21578,
+                'timestamp' => $faker->dateTime(),
                 'productnummer' => 2400+$i,
                 'prijsbetaald' => '0,00',
                 'aantalbesteld' => 2,
@@ -50,15 +50,15 @@ class RestaurantSeeder extends Seeder
             ]);
 
              DB::table('tafelgegevens')->insert([
-                'tafelnummer' => 1,
+                'tafelnummer' => 1+$i,
                 'aantalstoelen' => 2,
                 'status' => 1,
             ]);
              DB::table('tafelreserveringen')->insert([
                  'tafelnummer' => 1+$i,
                  'reserveernummer' => 12345678+$i,
-                 'tijdin' => '17.00',
-                 'tijduit' => '19.00',
+                 'tijdin' => $faker->dateTime(),
+                 'tijduit' => $faker->dateTime(),
 
             ]);
 
