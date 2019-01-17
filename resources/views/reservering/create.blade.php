@@ -1,12 +1,10 @@
-@extends('layouts.reservering')
+@extends('layouts.dashboard')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -21,21 +19,32 @@
                                         <label>
                                             vanaf:
                                           <input type="datetime-local" class="form-control" id="reserveringstart"
-                                        name="tijd-in" value="2018-06-12T19:30"
+                                        name="datum" value="2018-06-12T19:30"
                                         min="2018-06-07T00:00" max="2018-06-14T00:00">
                                         </label>
                                     </div>
                                     <div class="col-md-8">
-                                        <label>
-                                            tot:
-                                            <input type="datetime-local" class="form-control" name="tijd_uit" id="reserveringstart"
-                                                   name="meeting-time" value="2018-06-12T19:30"
-                                                   min="2018-06-07T00:00" max="2018-06-14T00:00">
-                                        </label>
+                                        hoelang:
+                                        <select name="time"class="form-control"  title="">
+                                            <option class="form-control" value="30">30 minuten</option>
+                                            <option class="form-control" value="60">1 uur</option>
+                                            <option class="form-control" value="120"> 2 uur</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-8">
+                                        tafel
+                                        <select name="tafel" class="form-control"  title="">
+                                            @foreach($tables->where('status',1) as $table)
+                                                <option name="tafel" value="{{$table->tafelnummer}}">tafel nummer: {{$table->tafelnummer}} aantal stoelen: {{$table->aantalstoelen}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-8">
                                     </div>
                                     <div class="col-md-8 col-xs-8">
                                         aantal gasten
-                                        <input type="text" placeholder="6" name="aantalgasten" class="col-md-2 col-xs-1" />
+                                        <input type="text" placeholder="6" required name="aantal_gasten" class="form-control col-md-2 col-xs-1" />
                                     </div>
                                     <div class="col-md-8 pt-5">
                                         <input type="submit" class="btn btn-primary" />

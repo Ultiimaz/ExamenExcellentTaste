@@ -22,13 +22,12 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::post('/reserveer/create','ReserveerController@create');
+Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
 {
-    Route::get('/reserveer/','ReserveerController@index')->name('overzicht');
-    Route::get('/reserveer/create',function()
+    Route::get('/reserveer',function()
     {
-        return view('reservering.create');
+        return view('reservering.create',['tables'=>\App\TableData::all()]);
     })->name('reserveercreate');
 //    Route::post('/reserveer/create','ReserveerController@create');
     Route::post('/reserveer/update','ReserveerController@update');
