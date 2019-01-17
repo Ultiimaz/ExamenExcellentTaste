@@ -21,6 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contact', function () {
     return view('contact');
 });
+Route::get('/profiel', function () {
+    return view('profile');
+});
 
 Route::post('/reserveer/create','ReserveerController@create');
 Route::middleware('auth:web')->group(function()
