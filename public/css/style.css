@@ -6025,7 +6025,8 @@ button.bg-purple:focus {
 .justify-content-center {
   -webkit-box-pack: center !important;
   -ms-flex-pack: center !important;
-  justify-content: center !important; }
+  justify-content: center !important;
+  margin-top: 2em; }
 
 .justify-content-between {
   -webkit-box-pack: justify !important;
