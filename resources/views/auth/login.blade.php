@@ -20,7 +20,7 @@
                             <label for="klantnummer" class="col-md-4 col-form-label text-md-right">{{ __('Klantnummer') }}</label>
 
                             <div class="col-md-6">
-                                <input id="klantnummer" type="text" class="form-control{{ $errors->has('klantnummer') ? ' is-invalid' : '' }}" name="email" value="{{ old('klantnummer') }}" required autofocus>
+                                <input id="klantnummer" type="text" class="form-control{{ $errors->has('klantnummer') ? ' is-invalid' : '' }}" name="klantnummer" value="{{ old('klantnummer') }}" required autofocus>
 
                                 @if ($errors->has('klantnummer'))
                                     <span class="invalid-feedback" role="alert">
