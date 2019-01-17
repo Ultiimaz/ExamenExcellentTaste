@@ -17,7 +17,7 @@ Route::get('/', function () {
 Auth::routes();
 
     Route::post('/register','Auth\RegisterController@create');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 Route::get('/contact', function () {
     return view('contact');
 });
