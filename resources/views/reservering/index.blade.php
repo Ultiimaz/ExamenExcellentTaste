@@ -1,6 +1,6 @@
-@extends('layouts.reservering')
+@extends('layouts.dashboard')
 
-@section('content')
+@section('page')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

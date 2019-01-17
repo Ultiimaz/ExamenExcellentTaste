@@ -21,6 +21,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/contact', function () {
     return view('contact');
 });
+Route::get('/profiel', function () {
+    return view('profiel');
+});
+//Route::get('/profiel', function () {
+//
+//    $klantgegevens = DB::table('users')->get();
+//
+//    return view('/profiel', ['/profiel' => $klantgegevens]);
+//});
 
 Route::post('/reserveer/create','ReserveerController@create');
 Route::middleware('auth:web')->group(function()
