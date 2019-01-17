@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Mail\Registration;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -78,22 +79,15 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        $this->klantnummer = $this->generateKlantnummer();
+        $user = new User;
+        $user->fill($request->toArray());
+        $user->klantnummer =  $this->generateKlantnummer();
+        $user->password = Hash::make($request['password']);
+        $user->save();
 
-        return User::create([
-            'klantnummer' => $this->klantnummer,
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'achternaam' => $data['achternaam'],
-            'voorvoegsel' => $data['voorvoegsel'],
-            'voorletter' => $data['voorletter'],
-            'adres' => $data['adres'],
-            'postcode' => $data['postcode'],
-            'plaats' => $data['plaats'],
-            'telefoon' => $data['telefoon']
-        ]);
+        return redirect('/login')->with('status', 'Registratie email is verzonden');
     }
 
     /**
@@ -106,7 +100,7 @@ class RegisterController extends Controller
             return $this->generateKlantnummer();
         }
 
-        return $number;
+        return intval($number);
     }
 
     /**

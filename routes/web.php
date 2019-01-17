@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
 
+    Route::post('/register','Auth\RegisterController@create');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/reserveer/create','ReserveerController@create');

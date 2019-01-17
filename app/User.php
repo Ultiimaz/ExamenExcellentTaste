@@ -11,7 +11,7 @@ class User extends Authenticatable
     protected $primaryKey = 'klantnummer';
     public $timestamps = false;
     public $incrementing = false;
-    protected $fillable = ['achternaam', 'voorvoegsel','voorletter', 'adres', 'postcode', 'plaats', 'email','telefoonnummer', 'password'];
+    protected $fillable = ['achternaam', 'voorvoegsel','voorletter', 'adres', 'postcode', 'plaats', 'email','telefoonnummer'];
     protected $hidden = [
         'password', 'remember_token',
     ];

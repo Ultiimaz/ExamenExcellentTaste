@@ -22,7 +22,7 @@ class RestaurantTables extends Migration
         });
         //klantgegevens
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('klantnummer')->unique();
+            $table->integer('klantnummer');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
