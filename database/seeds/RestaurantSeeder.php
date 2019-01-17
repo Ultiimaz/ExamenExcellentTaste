@@ -17,6 +17,7 @@ class RestaurantSeeder extends Seeder
             DB::table('reserveringen')->insert([
                 'reserveernummer' => 12345678+$i,
                 'datum' => $faker->date(),
+                'tijd' => $faker->time(),
                 'aantalgasten' => 6,
                 'klantnummer' => 1000+$i,
             ]);
