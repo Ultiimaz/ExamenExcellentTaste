@@ -18,6 +18,9 @@ Auth::routes();
 
     Route::post('/register','Auth\RegisterController@create');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/contact', function () {
+    return view('contact');
+});
 
 Route::post('/reserveer/create','ReserveerController@create');
 Route::middleware('auth:web')->group(function()
