@@ -14,13 +14,13 @@ class CreateTafelsTable extends Migration
     public function up()
     {
 
-        Schema::create('tafels', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('reserveernummer');
-            $table->date('tijdin');
-            $table->date('tijduit');
-            $table->timestamps();
-        });
+//        Schema::create('tafels', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->integer('reserveernummer');
+//            $table->date('tijdin');
+//            $table->date('tijduit');
+//            $table->timestamps();
+//        });
     }
 
     /**

@@ -58,7 +58,7 @@
                             <div class="col-md-6 col-sm-offset-4">
                                 <div class="input-group">
                                     <input id="voorletter" maxlength="1" type="text" class="small-input form-control{{ $errors->has('voorletter') ? ' is-invalid' : '' }}" name="voorletter" value="{{ old('voorletter') }}" required>
-                                    <input id="voorvoegsel" type="text" class="form-control{{ $errors->has('voorvoegsel') ? ' is-invalid' : '' }}" name="voorvoegsel" value="{{ old('voorvoegsel') }}" required>
+                                    <input id="voorvoegsel" type="text" class="form-control{{ $errors->has('voorvoegsel') ? ' is-invalid' : '' }}" name="voorvoegsel" value="{{ old('voorvoegsel') }}">
                                     <input id="achternaam" type="text" class="form-control{{ $errors->has('achternaam') ? ' is-invalid' : '' }}" name="achternaam" value="{{ old('achternaam') }}" required>
                                 </div>
                                 @if ($errors->has('achternaam', 'voorvoegsel', 'voorletter'))

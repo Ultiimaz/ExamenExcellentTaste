@@ -13,10 +13,10 @@ class CreateReserveringsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reserverings', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+//        Schema::create('reserverings', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->timestamps();
+//        });
     }
 
     /**
