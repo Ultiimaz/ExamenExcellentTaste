@@ -18,6 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/contact', function () {
-    return view('contact');
+
+Route::post('/reserveer/create','ReserveerController@create');
+Route::middleware('auth:web')->group(function()
+{
+    Route::get('/reserveer/','ReserveerController@index')->name('overzicht');
+    Route::get('/reserveer/create',function()
+    {
+        return view('reservering.create');
+    })->name('reserveercreate');
+//    Route::post('/reserveer/create','ReserveerController@create');
+    Route::post('/reserveer/update','ReserveerController@update');
+    Route::get('/reserveer/delete/{id}','ReserveerController@delete');
 });

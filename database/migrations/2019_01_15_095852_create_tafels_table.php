@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePasswordResetsTable extends Migration
+class CreateTafelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,6 +14,13 @@ class CreatePasswordResetsTable extends Migration
     public function up()
     {
 
+        Schema::create('tafels', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('reserveernummer');
+            $table->date('tijdin');
+            $table->date('tijduit');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-
+        Schema::dropIfExists('tafels');
     }
 }
