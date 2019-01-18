@@ -37,6 +37,7 @@ class LoginController extends Controller
         return 'klantnummer';
     }
 
+
     /**
      * Create a new controller instance.
      *
