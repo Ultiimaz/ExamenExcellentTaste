@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-    Route::post('/register','Auth\RegisterController@create');
+Route::post('/register','Auth\RegisterController@create');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 Route::get('/contact', function () {
     return view('contact');
@@ -24,12 +24,9 @@ Route::get('/contact', function () {
 Route::get('/profiel', function () {
     return view('profiel');
 });
-//Route::get('/profiel', function () {
-//
-//    $klantgegevens = DB::table('users')->get();
-//
-//    return view('/profiel', ['/profiel' => $klantgegevens]);
-//});
+Route::get('/beheerder', function(){
+    return view('layouts.beheerder');
+});
 
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
