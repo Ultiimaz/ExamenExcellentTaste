@@ -85,6 +85,7 @@ class RegisterController extends Controller
         $user->fill($request->toArray());
         $user->klantnummer =  $this->generateKlantnummer();
         $user->password = Hash::make($request['password']);
+        $user->telefoon = '06-'.$request['telefoon'];
         $user->save();
 
         return redirect('/login')->with('status', 'Registratie email is verzonden');

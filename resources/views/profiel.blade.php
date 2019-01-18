@@ -11,21 +11,57 @@
                         </div>
                     </div>
                     <div class="row">
-                        <table>
+                        <table class="table col-12">
+                            <tbody>
                             <tr>
-                                <th>Klantnummer:</th>
-                                <th>Email:</th>
-                                <th>Voorletter:</th>
-                                <th>Voorvoegsel:</th>
-                                <th>Achternaam:</th>
+                                <td class="text-muted">Klantnummer:</td>
+                                <td class="font-medium">{{$user->klantnummer}}</td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
-                                <td>{{$user->klantnummer}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>{{$user->voorletter}}</td>
-                                <td>{{$user->voorvoegsel}}</td>
-                                <td>{{$user->achternaam}}</td>
+                                <td class="text-muted">Email:</td>
+                                <td class="font-medium">{{$user->email}}</td>
+                                <td></td>
+                                <td></td>
                             </tr>
+                            <tr>
+                                <td class="text-muted">Voorletter/Achternaam:</td>
+                                <td class="font-medium">{{$user->voorletter}}</td>
+                                <td class="font-medium">{{$user->voorvoegsel}}</td>
+                                <td class="font-medium">{{$user->achternaam}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Telefoon:</td>
+                                <td class="font-medium">{{$user->telefoon}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Adres:</td>
+                                <td class="font-medium">{{$user->adres}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Postcode</td>
+                                <td class="font-medium">{{$user->postcode}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Plaats:</td>
+                                <td class="font-medium">{{$user->plaats}}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="font-medium"></td>
+                                <td><input class="btn btn-info text-white" type="submit" value="Gegevens aanpassen"/></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
                         </table>
 
                         <!-- column -->

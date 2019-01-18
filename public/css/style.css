@@ -564,7 +564,8 @@ svg:not(:root) {
   overflow: hidden; }
 
 table {
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  text-align: center; }
 
 caption {
   padding-top: 1rem;
