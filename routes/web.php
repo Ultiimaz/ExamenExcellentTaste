@@ -42,3 +42,10 @@ Route::middleware('auth:web')->group(function()
     Route::post('/reserveer/update','ReserveerController@update');
     Route::get('/reserveer/delete/{id}','ReserveerController@delete');
 });
+
+Route::middleware('auth:web')->group(function() {
+    Route::get('/producten', 'ProductController@index');
+    Route::post('/producten/update/{id}', 'ProductController@update');
+    Route::post('/producten/create', 'ProductController@create');
+    Route::get('/producten/delete/{id}', 'ProductController@delete')->name('producten.delete');
+});
