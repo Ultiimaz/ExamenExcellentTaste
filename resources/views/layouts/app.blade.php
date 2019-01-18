@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <script src="{{ asset('js/assets/libs/jquery/dist/jquery.min.js') }}" defer></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -102,5 +105,7 @@
         <main>
             @yield('content')
         </main>
+        @yield('scripts')
     </body>
+
 </html>
