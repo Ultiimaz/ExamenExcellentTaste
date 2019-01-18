@@ -57,9 +57,9 @@ class RestaurantTables extends Migration
 
         });
         Schema::create('tafelgegevens', function (Blueprint $table) {
-            $table->integer('tafelnummer');     //pk
+            $table->increments('tafelnummer');     //pk
             $table->integer('aantalstoelen');
-            $table->integer('status');
+            $table->boolean('status');
 
         });
 
