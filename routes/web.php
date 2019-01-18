@@ -28,15 +28,21 @@ Route::get('/menukaart', function () {
 Route::get('/beheerder', function () {
     return view('beheerder');
 });
-//Route::get('/profiel', function () {
-//    return view('profiel');
+
 //});
 Route::get('/profiel', function () {
 
     $user = Auth::user();
 
+
     return view('/profiel', ['user' => $user]);
+
 });
+Route::post('/profiel/update/{id}', 'ProfielController@update');
+//Route::middleware('auth:web')->group(function() {
+//    Route::get('/profiel', 'ProfielController@index');
+//    Route::post('/profiel/update/{id}', 'ProductController@update');
+//});
 
 Route::post('/reserveer/create','ReserveerController@create');
 Route::middleware('auth:web')->group(function()
@@ -49,4 +55,10 @@ Route::middleware('auth:web')->group(function()
 //    Route::post('/reserveer/create','ReserveerController@create');
     Route::post('/reserveer/update','ReserveerController@update');
     Route::get('/reserveer/delete/{id}','ReserveerController@delete');
+});
+
+Route::middleware('auth:web')->group(function() {
+    Route::get('/producten', 'ProductController@index');
+    Route::post('/producten/update/{id}', 'ProductController@update');
+    Route::post('/producten/create', 'ProductController@create');
 });

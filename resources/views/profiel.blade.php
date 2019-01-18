@@ -3,6 +3,11 @@
 @section('page')
     <div class="row">
         <div class="col-md-8">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="card">
                 <div class="card-body">
                     <div class="d-md-flex align-items-center">
@@ -11,58 +16,61 @@
                         </div>
                     </div>
                     <div class="row">
+                        <form method="post" action="/profiel/update/{{ $user->klantnummer }}">
                         <table class="table col-12">
                             <tbody>
                             <tr>
+
                                 <td class="text-muted">Klantnummer:</td>
-                                <td class="font-medium">{{$user->klantnummer}}</td>
+                                <td>{{$user->klantnummer}}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Email:</td>
-                                <td class="font-medium">{{$user->email}}</td>
-                                <td></td>
+                                <td colspan="2"> <input  id="Gegevens" type="text" class="form-control-plaintext" value="{{$user->email}}"/></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Voorletter/Achternaam:</td>
-                                <td class="font-medium">{{$user->voorletter}}</td>
-                                <td class="font-medium">{{$user->voorvoegsel}}</td>
-                                <td class="font-medium">{{$user->achternaam}}</td>
+                                <td ><input maxlength="1" name="voorletter" id="Gegevens" type="text" class="form-control" value="{{$user->voorletter}}"/></td>
+                                <td ><input name="voorvoegsel" id="Gegevens" type="text" class="form-control" value="{{$user->voorvoegsel}}"/></td>
+                                <td ><input name="achternaam" id="Gegevens" type="text" class="form-control" value="{{$user->achternaam}}"/></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Telefoon:</td>
-                                <td class="font-medium">{{$user->telefoon}}</td>
+                                <td><input name="telefoon" id="Gegevens" type="text" class="form-control" value="{{$user->telefoon}}"/></td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Adres:</td>
-                                <td class="font-medium">{{$user->adres}}</td>
+                                <td> <input name="adres" id="Gegevens" type="text" class="form-control" value="{{$user->adres}}"/></td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Postcode</td>
-                                <td class="font-medium">{{$user->postcode}}</td>
+                                <td> <input name="postcode" id="Gegevens" type="text" class="form-control" value="{{$user->postcode}}"/></td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Plaats:</td>
-                                <td class="font-medium">{{$user->plaats}}</td>
+                                <td> <input name="plaats" id="Gegevens" type="text" class="form-control" value="{{$user->plaats}}"/></td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td class="font-medium"></td>
-                                <td><input class="btn btn-info text-white" type="submit" value="Gegevens aanpassen"/></td>
+                                <td><input class="btn btn-purple text-white" type="submit" value="Gegevens aanpassen"/></td>
                                 <td></td>
                                 <td></td>
                             </tr>
                             </tbody>
                         </table>
+                            @csrf
+                        </form>
 
                         <!-- column -->
                     </div>
