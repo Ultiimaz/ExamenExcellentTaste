@@ -28,7 +28,7 @@ class CheckUserStatus
         if($request->user()->status ===  2)
         {
 //            return view('layouts.beheerder');
-            return redirect('/beheerder');
+//            return redirect('/beheerder');
         }
         return $next($request);
     }
