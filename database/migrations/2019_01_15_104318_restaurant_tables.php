@@ -34,6 +34,7 @@ class RestaurantTables extends Migration
             $table->string('postcode');
             $table->string('plaats');
             $table->string('telefoon')->nullable();
+            $table->integer('status')->default(1); // 2 is beheerder,1 is gebruiker en 0 is geblokkeerd!
             $table->rememberToken();
             $table->timestamps();
         });

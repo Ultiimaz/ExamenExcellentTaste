@@ -11,7 +11,7 @@ class Reservation extends Model
     protected $primaryKey = 'reserveernummer';
     public $timestamps = false;
     public $incrementing = false;
-    protected $fillable = ['aantal_gasten, tijd, datum'];
+    protected $fillable = ['aantal_gasten', 'tijd', 'datum'];
 
     public function customer()
     {

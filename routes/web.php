@@ -17,7 +17,7 @@ Route::get('/', function () {
 Auth::routes();
 
     Route::post('/register','Auth\RegisterController@create');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -31,13 +31,12 @@ Route::get('/profiel', function () {
 //    return view('/profiel', ['/profiel' => $klantgegevens]);
 //});
 
-Route::post('/reserveer/create','ReserveerController@create');
+Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
 {
-    Route::get('/reserveer/','ReserveerController@index')->name('overzicht');
-    Route::get('/reserveer/create',function()
+    Route::get('/reserveer',function()
     {
-        return view('reservering.create');
+        return view('reservering.create',['tables'=>\App\TableData::all()]);
     })->name('reserveercreate');
 //    Route::post('/reserveer/create','ReserveerController@create');
     Route::post('/reserveer/update','ReserveerController@update');
