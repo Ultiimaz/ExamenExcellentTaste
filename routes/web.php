@@ -44,5 +44,13 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/producten', 'ProductController@index');
     Route::post('/producten/update/{id}', 'ProductController@update');
     Route::post('/producten/create', 'ProductController@create');
-    Route::get('/producten/delete/{id}', 'ProductController@delete')->name('producten.delete');
+    Route::get('/producten/delete/{id}', 'ProductController@delete');
 });
+
+Route::middleware('auth:web')->group(function() {
+    Route::get('/tafels', 'TafelController@index');
+    Route::post('/tafels/update/{id}', 'TafelController@update');
+    Route::post('/tafels/create', 'TafelController@create');
+    Route::get('/tafels/delete/{id}', 'TafelController@delete');
+});
+
