@@ -74,3 +74,5 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/tafels/delete/{id}', 'TafelController@delete');
 });
 
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
