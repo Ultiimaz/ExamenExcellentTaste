@@ -15,10 +15,8 @@ class CheckUserStatus
      */
     public function handle($request, Closure $next)
     {
-//        dd($request->user()->status);
         if($request->user()->status < 1)
         {
-
             return back()->with('status','Uw account is geblokkeerd!');
         }else
 
@@ -29,7 +27,8 @@ class CheckUserStatus
 
         if($request->user()->status ===  2)
         {
-            return view('layouts.beheerder');
+//            return view('layouts.beheerder');
+//            return redirect('/beheerder');
         }
         return $next($request);
     }

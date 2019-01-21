@@ -16,20 +16,35 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-    Route::post('/register','Auth\RegisterController@create');
+Route::post('/register','Auth\RegisterController@create');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::get('/profiel', function () {
-    return view('profiel');
+
+Route::get('/menukaart', function () {
+    return view('menukaart');
 });
-//Route::get('/profiel', function () {
-//
-//    $klantgegevens = DB::table('users')->get();
-//
-//    return view('/profiel', ['/profiel' => $klantgegevens]);
+Route::get('/beheerder', function () {
+    return view('beheerder');
+});
+
+Route::get('/profiel', function () {
+
+    $user = Auth::user();
+
+
+    return view('/profiel', ['user' => $user]);
+
+});
+Route::post('/profiel/update/{id}', 'ProfielController@update');
+//Route::middleware('auth:web')->group(function() {
+//    Route::get('/profiel', 'ProfielController@index');
+//    Route::post('/profiel/update/{id}', 'ProductController@update');
 //});
+Route::get('/beheerder', function(){
+    return view('layouts.beheerder');
+});
 
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
@@ -42,3 +57,18 @@ Route::middleware('auth:web')->group(function()
     Route::post('/reserveer/update','ReserveerController@update');
     Route::get('/reserveer/delete/{id}','ReserveerController@delete');
 });
+
+Route::middleware('auth:web')->group(function() {
+    Route::get('/producten', 'ProductController@index');
+    Route::post('/producten/update/{id}', 'ProductController@update');
+    Route::post('/producten/create', 'ProductController@create');
+    Route::get('/producten/delete/{id}', 'ProductController@delete');
+});
+
+Route::middleware('auth:web')->group(function() {
+    Route::get('/tafels', 'TafelController@index');
+    Route::post('/tafels/update/{id}', 'TafelController@update');
+    Route::post('/tafels/create', 'TafelController@create');
+    Route::get('/tafels/delete/{id}', 'TafelController@delete');
+});
+

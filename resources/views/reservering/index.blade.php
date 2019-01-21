@@ -12,7 +12,7 @@
                         </div>
                     @endif
                     <a href="{{route('reserveercreate')}}">
-                        <table class="table table-dark col-12">
+                        <table class="table table col-12">
                             <thead>
                             <tr>
                                 <th scope="col">reserveernummer</th>

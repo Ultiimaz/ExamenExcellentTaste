@@ -15,6 +15,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isBeheerder(){
+        if ($this->status == 2){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+
+
+    }
 }
 
 

@@ -12,6 +12,8 @@ class RestaurantSeeder extends Seeder
      */
     public function run()
     {
+
+
         for ($i=0; $i < 5; $i++) {
             $faker = Faker::create();
             DB::table('reserveringen')->insert([
@@ -30,14 +32,15 @@ class RestaurantSeeder extends Seeder
                 'adres' => $faker->address(),
                 'postcode' => '7d',
                 'plaats' => $faker->city(),
-                'email' => $faker->email(),
+                 'status'=> '1', // 1 = klant , 2 = beheer / 0 = blok
+                 'email' => $faker->email(),
             ]);
 
 
             DB::table('producten')->insert([
                 'productnummer' => 2400+$i,
                 'productomschrijving' => $faker->firstName(),
-                'prijs' => '20,00'
+                'prijs' => 2.00
             ]);
             DB::table('bestellingen')->insert([
                 'device' => 1+$i,
