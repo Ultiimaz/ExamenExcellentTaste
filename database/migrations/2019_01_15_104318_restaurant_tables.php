@@ -14,9 +14,9 @@ class RestaurantTables extends Migration
     public function up()
     {
         Schema::create('reserveringen', function (Blueprint $table) {
-            $table->integer('reserveernummer'); //pk
-            $table->date('datum', 20);
-            $table->integer('tijd', 20);
+            $table->increments('reserveernummer'); //pk
+            $table->datetime('datum');
+            $table->integer('tijd');
             $table->string('aantalGasten', 50);
             $table->integer('klantnummer'); //fk
 
