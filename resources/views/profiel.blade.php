@@ -28,7 +28,7 @@
                             </tr>
                             <tr>
                                 <td class="text-muted">Email:</td>
-                                <td colspan="2"> <input  id="Gegevens" type="text" class="form-control-plaintext" value="{{$user->email}}"/></td>
+                                <td colspan="2"> {{$user->email}}</td>
                                 <td></td>
                             </tr>
                             <tr>
