@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-body">
+                <div id="body" class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -14,6 +14,18 @@
                     <script>
                         function onSubmit(e)
                         {
+                            if(!$("#reserveringstart").val())
+                            {
+                                return;
+                            }
+                            if(!$("#time").val())
+                            {
+                                return;
+                            }
+                            if(!selectedTables[0])
+                            {
+                                return;
+                            }
                             $.ajax({
                                 type: "post",
                                 data: {
@@ -22,11 +34,19 @@
                                     tafel1: selectedTables[0],
 
                                     tafel2: selectedTables[1],
-                                    aantal_gasten: $("#aantal_gasten").val(),
+                                    aantal_gasten: $("#aantal_gasten").val()
 
                                 }
-                            });
 
+                        }).done(function(e){
+                                $("#body").prepend("<div class=\"alert alert-success\" role=\"alert\">\n" +
+                                    "Uw reservering is geplaatst \n" +
+                                    "</div>\n");
+                                setInterval(function() {
+                                    location.reload();
+                                }, 5000);
+
+                            })
                         }
                     </script>
                     <form method="post" onsubmit="event.preventDefault();onSubmit()">
@@ -36,14 +56,15 @@
                                     <div class="col-md-8">
                                         <label>
                                             vanaf:
-                                          <input id="reserveringstart" type="datetime-local" class="form-control" id="reserveringstart"
-                                        name="datum" value="2018-06-12T19:30"
-                                        min="2018-06-07T00:00" max="2018-06-14T00:00">
+                                          <input type="datetime-local" id="reserveringstart" class="form-control"
+                                        name="datum"
+                                            required
+                                          >
                                         </label>
                                     </div>
                                     <div class="col-md-8">
                                         hoelang:
-                                        <select name="time"class="form-control" id="time" title="">
+                                        <select name="time" class="form-control" id="time" title="" required>
                                             <option class="form-control" value="30">30 minuten</option>
                                             <option class="form-control" value="60">1 uur</option>
                                             <option class="form-control" value="120"> 2 uur</option>
@@ -52,8 +73,27 @@
                                     <script>
                                         var selectedTables = [];
                                         var selected = 0;
-
-
+                                        window.addEventListener("load", function() {
+                                            var now = new Date();
+                                            var max = now;
+                                            var utcString = now.toISOString().substring(0,19);
+                                            var year = now.getFullYear();
+                                            var month = now.getMonth() + 1;
+                                            var day = now.getDate();
+                                            var hour = now.getHours();
+                                            var minute = now.getMinutes();
+                                            var second = now.getSeconds();
+                                            var localDatetime = year + "-" +
+                                                (month < 10 ? "0" + month.toString() : month) + "-" +
+                                                (day < 10 ? "0" + day.toString() : day) + "T" +
+                                                (hour < 10 ? "0" + hour.toString() : hour) + ":" +
+                                                (minute < 10 ? "0" + minute.toString() : minute) +
+                                                utcString.substring(16,19);
+                                            var datetimeField = document.getElementById("reserveringstart");
+                                            datetimeField.value = localDatetime;
+                                            datetimeField.min = localDatetime;
+                                            datetimeField.max = max.setDate(now.getDate() + 1);
+                                        });
                                         function deleteTafel(id)
                                         {
                                             selected--;
@@ -80,7 +120,8 @@
                                     </script>
                                     <div id='tafels' class="col-md-8">
                                         tafel
-                                        <select name="tafel" class="form-control" id="tafel" onchange="addTafel(value)" title="">
+                                        <select name="tafel" class="form-control"  required id="tafel" onchange="addTafel(value)" title="">
+                                            <option>kies hier uw tafel</option>
                                             @foreach($tables->where('status',1) as $table)
                                                 <option name="tafel"  value="{{$table->tafelnummer}}">tafel nummer: {{$table->tafelnummer}} aantal stoelen: {{$table->aantalstoelen}}</option>
                                             @endforeach
@@ -91,7 +132,7 @@
                                     </div>
                                     <div class="col-md-8 col-xs-8">
                                         aantal gasten
-                                        <select name="aantal_gasten" id="aantal_gasten" class="form-control col-md-2 col-xs-1"  title="">
+                                        <select name="aantal_gasten" id="aantal_gasten" class="form-control col-md-2 col-xs-1" required title="">
                                             <option class="form-control" value="1">1</option>
                                             <option class="form-control" value="2">2</option>
                                             <option class="form-control" value="3">3</option>
