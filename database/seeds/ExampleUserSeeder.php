@@ -33,14 +33,14 @@ class ExampleUserSeeder extends Seeder
         DB::table('users')->insert([
             'password'=> bcrypt('password'),
             'klantnummer' => 12345,
-            'achternaam' => 'Milton',
+            'achternaam' => 'Kramp',
             'voorletter' => 'J',
             'voorvoegsel'=> '',
             'adres' => $faker->address(),
             'postcode' => '7d',
             'plaats' => $faker->city(),
             'status'=> '1',
-            'email' => 'klant@milton.nl',
+            'email' => 'klant@kramp.nl',
         ]);
     }
 }

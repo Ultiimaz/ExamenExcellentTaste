@@ -19,12 +19,12 @@ class RestaurantSeeder extends Seeder
             DB::table('reserveringen')->insert([
                 'reserveernummer' => 12345678+$i,
                 'datum' => $faker->date(),
-                'tijd' => 12+$i,
+                'tijd' => 25+$i,
                 'aantalgasten' => 6,
                 'klantnummer' => 1000+$i,
             ]);
              DB::table('users')->insert([
-                'password'=> $faker->password,
+                'password'=> bcrypt('password'),
                 'klantnummer' => 1000+$i,
                 'achternaam' => 'haoo',
                 'voorletter' => $faker->randomLetter(),
