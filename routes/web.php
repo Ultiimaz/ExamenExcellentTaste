@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
-
 Route::post('/register','Auth\RegisterController@create');
-Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 Route::get('/contact', function () {
     return view('contact');
+});
+Route::get('/home', function () {
+    return view('home');
 });
 
 Route::get('/menukaart', function () {
