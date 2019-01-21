@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('page')
+
     <style>
         #map {
             width: 100%;
@@ -38,12 +39,11 @@
                 <div class="card-body">
                     <h4 class="card-title"></h4>
 
-                    <im
+                    <img style="width: 100%" src="https://media-cdn.tripadvisor.com/media/photo-s/06/d0/90/69/taste.jpg"/>
 
                 </div>
             </div>
         </div>
     </div>
-
 
 @endsection
