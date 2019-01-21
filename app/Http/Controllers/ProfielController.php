@@ -29,6 +29,7 @@ class ProfielController extends Controller
      * @param  int  $id
      * @return Response
      */
+
     public function update(Request $request, $id)
     {
         $request->validate([

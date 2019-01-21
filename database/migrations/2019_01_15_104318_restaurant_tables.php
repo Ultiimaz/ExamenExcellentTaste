@@ -15,7 +15,8 @@ class RestaurantTables extends Migration
     {
         Schema::create('reserveringen', function (Blueprint $table) {
             $table->integer('reserveernummer'); //pk
-            $table->string('datum', 20);
+            $table->date('datum', 20);
+            $table->integer('tijd', 20);
             $table->string('aantalGasten', 50);
             $table->integer('klantnummer'); //fk
 
@@ -43,10 +44,11 @@ class RestaurantTables extends Migration
             $table->increments('productnummer');   //Pk
             $table->string('productomschrijving');
             $table->decimal('prijs');
+
         });
         Schema::create('bestellingen', function (Blueprint $table) {
             $table->integer('device');          //pk,
-            $table->integer('timestamp');     //pk,
+            $table->timestamp('timestamp');     //pk,
             $table->integer('productnummer');   //pk, fk
             $table->string('prijsbetaald')->nullable();
             $table->integer('aantalbesteld');
@@ -55,17 +57,17 @@ class RestaurantTables extends Migration
 
         });
         Schema::create('tafelgegevens', function (Blueprint $table) {
-            $table->integer('tafelnummer');     //pk
+            $table->increments('tafelnummer');     //pk
             $table->integer('aantalstoelen');
-            $table->integer('status');
+            $table->boolean('status');
 
         });
 
         Schema::create('tafelreserveringen', function (Blueprint $table) {
             $table->integer('reserveernummer'); //fk, pk
             $table->integer('tafelnummer');     //fk, pk
-            $table->integer('tijdin');
-            $table->integer('tijduit');
+            $table->dateTime('tijdin');
+            $table->dateTime('tijduit');
 
         });
 

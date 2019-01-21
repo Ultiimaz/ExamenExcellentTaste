@@ -12,11 +12,14 @@ class RestaurantSeeder extends Seeder
      */
     public function run()
     {
+
+
         for ($i=0; $i < 5; $i++) {
             $faker = Faker::create();
             DB::table('reserveringen')->insert([
                 'reserveernummer' => 12345678+$i,
                 'datum' => $faker->date(),
+                'tijd' => 12+$i,
                 'aantalgasten' => 6,
                 'klantnummer' => 1000+$i,
             ]);
@@ -29,18 +32,19 @@ class RestaurantSeeder extends Seeder
                 'adres' => $faker->address(),
                 'postcode' => '7d',
                 'plaats' => $faker->city(),
-                'email' => $faker->email(),
+                 'status'=> '1', // 1 = klant , 2 = beheer / 0 = blok
+                 'email' => $faker->email(),
             ]);
 
 
             DB::table('producten')->insert([
                 'productnummer' => 2400+$i,
                 'productomschrijving' => $faker->firstName(),
-                'prijs' => '20,00'
+                'prijs' => 2.00
             ]);
             DB::table('bestellingen')->insert([
                 'device' => 1+$i,
-                'timestamp' => 21578,
+                'timestamp' => $faker->dateTime(),
                 'productnummer' => 2400+$i,
                 'prijsbetaald' => '0,00',
                 'aantalbesteld' => 2,
@@ -49,15 +53,15 @@ class RestaurantSeeder extends Seeder
             ]);
 
              DB::table('tafelgegevens')->insert([
-                'tafelnummer' => 1,
+                'tafelnummer' => 1+$i,
                 'aantalstoelen' => 2,
                 'status' => 1,
             ]);
              DB::table('tafelreserveringen')->insert([
                  'tafelnummer' => 1+$i,
                  'reserveernummer' => 12345678+$i,
-                 'tijdin' => '17.00',
-                 'tijduit' => '19.00',
+                 'tijdin' => $faker->dateTime(),
+                 'tijduit' => $faker->dateTime(),
 
             ]);
 

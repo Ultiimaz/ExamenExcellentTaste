@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-    Route::post('/register','Auth\RegisterController@create');
+Route::post('/register','Auth\RegisterController@create');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 Route::get('/contact', function () {
     return view('contact');
@@ -29,7 +29,6 @@ Route::get('/beheerder', function () {
     return view('beheerder');
 });
 
-//});
 Route::get('/profiel', function () {
 
     $user = Auth::user();
@@ -43,14 +42,16 @@ Route::post('/profiel/update/{id}', 'ProfielController@update');
 //    Route::get('/profiel', 'ProfielController@index');
 //    Route::post('/profiel/update/{id}', 'ProductController@update');
 //});
+Route::get('/beheerder', function(){
+    return view('layouts.beheerder');
+});
 
-Route::post('/reserveer/create','ReserveerController@create');
+Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
 {
-    Route::get('/reserveer/','ReserveerController@index')->name('overzicht');
-    Route::get('/reserveer/create',function()
+    Route::get('/reserveer',function()
     {
-        return view('reservering.create');
+        return view('reservering.create',['tables'=>\App\TableData::all()]);
     })->name('reserveercreate');
 //    Route::post('/reserveer/create','ReserveerController@create');
     Route::post('/reserveer/update','ReserveerController@update');
@@ -61,4 +62,13 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/producten', 'ProductController@index');
     Route::post('/producten/update/{id}', 'ProductController@update');
     Route::post('/producten/create', 'ProductController@create');
+    Route::get('/producten/delete/{id}', 'ProductController@delete');
 });
+
+Route::middleware('auth:web')->group(function() {
+    Route::get('/tafels', 'TafelController@index');
+    Route::post('/tafels/update/{id}', 'TafelController@update');
+    Route::post('/tafels/create', 'TafelController@create');
+    Route::get('/tafels/delete/{id}', 'TafelController@delete');
+});
+

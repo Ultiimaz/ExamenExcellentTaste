@@ -26,42 +26,18 @@ class ProductController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        $product->validate([
+        $request->validate([
             'productomschrijving' => 'required',
             'prijs' => 'required'
         ]);
-        $product = new Product([
-            'productomschrijving' => $request->get('productomschrijving'),
-            'prijs'=> $request->get('prijs')
-        ]);
+        $product = new Product;
+        $product->productomschrijving = $request->get('productomschrijving');
+        $product->prijs = floatval($request->get('prijs'));
         $product->save();
-        return redirect('/shares')->with('success', 'Stock has been added');
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $product = Product::find($id);
-
-        return view('edit', compact('product','id'));
+        return redirect('/producten')->with('status', 'Product is toegevoegd');
     }
 
     /**
@@ -90,8 +66,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+
+        return redirect('/producten')->with('status', 'Product is verwijderd');
     }
 }
