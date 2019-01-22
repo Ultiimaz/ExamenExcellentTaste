@@ -24,15 +24,15 @@ class RestaurantTables extends Migration
         //klantgegevens
         Schema::create('users', function (Blueprint $table) {
             $table->integer('klantnummer');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('achternaam');
+            $table->string('password')->nullable();
+            $table->string('achternaam')->nullable();
             $table->string('voorvoegsel')->nullable();
-            $table->string('voorletter');
-            $table->string('adres');
-            $table->string('postcode');
-            $table->string('plaats');
+            $table->string('voorletter')->nullable();
+            $table->string('adres')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('plaats')->nullable();
             $table->string('telefoon')->nullable();
             $table->integer('status')->default(1); // 2 is beheerder,1 is gebruiker en 0 is geblokkeerd!
             $table->rememberToken();

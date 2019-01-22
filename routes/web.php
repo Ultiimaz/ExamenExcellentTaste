@@ -72,3 +72,12 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/tafels/delete/{id}', 'TafelController@delete');
 });
 
+Route::middleware('auth:web')->group(function() {
+    Route::get('/gebruikers', 'UserController@index');
+    Route::get('/gebruikers/{id}', 'UserController@view');
+    Route::post('/gebruikers/update/{id}', 'UserController@update');
+    Route::get('/gebruikers/block/{id}', 'UserController@block');
+    Route::get('/gebruikers/unblock/{id}', 'UserController@unblock');
+    Route::post('/gebruikers/create', 'UserController@create');
+    Route::get('/gebruikers/delete/{id}', 'UserController@delete');
+});
