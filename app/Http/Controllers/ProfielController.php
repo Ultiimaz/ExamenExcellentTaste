@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\Product;
 use App\Profiel;
+use App\Reservation;
+use App\ReserveringDetail;
 use App\User;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class ProfielController extends Controller
 {
@@ -55,5 +61,24 @@ class ProfielController extends Controller
         return redirect('/profiel')->with('status', 'Profiel is aangepast');
     }
 
+    public function nota(){
 
+        $user = Auth::user();
+
+
+        $reserveringen = Reservation::where('klantnummer', $user->klantnummer)->get();
+        return view('nota', ['user' => $user, 'reserveringen' => $reserveringen]);
+
+    }
+
+    public function downloadPDF($reserveernummer){
+        $user = Auth::user();
+        $reservering = Reservation::where('reserveernummer', $reserveernummer)->get()->first();
+        $orders = Order::where('reserveernummer', $reserveernummer)->get();
+
+//        dd($orders);
+//        dd($product);
+        $pdf = PDF::loadView('pdf', ['reservering'=> $reservering, 'user' => $user, 'orders' => $orders]);
+        return $pdf->download('invoice.pdf');
+    }
 }
