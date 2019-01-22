@@ -52,14 +52,14 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \App\User
      */
-    protected function validator(array $data)
+    protected function create(Request $request)
     {
-        return Validator::make($data, [
+        $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%@]).*$/'],
             'achternaam' => ['required', 'string', 'max:255'],
@@ -71,22 +71,17 @@ class RegisterController extends Controller
             'telefoon' => ['required', 'string'],
             'g-recaptcha-response' => 'required|captcha'
         ]);
-    }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(Request $request)
-    {
+        $klantnummer = $this->generateKlantnummer();
+
         $user = new User;
         $user->fill($request->toArray());
-        $user->klantnummer =  $this->generateKlantnummer();
+        $user->klantnummer =  $klantnummer;
         $user->password = Hash::make($request['password']);
         $user->telefoon = '06-'.$request['telefoon'];
         $user->save();
+
+        Mail::to($request['email'])->send(new Registration($klantnummer));
 
         return redirect('/login')->with('status', 'Registratie email is verzonden');
     }
