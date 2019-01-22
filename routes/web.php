@@ -32,7 +32,6 @@ Route::get('/profiel', function () {
 
     $user = Auth::user();
 
-
     return view('/profiel', ['user' => $user]);
 
 });
@@ -46,10 +45,7 @@ Route::post('/profiel/update/{id}', 'ProfielController@update');
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
 {
-    Route::get('/reserveer',function()
-    {
-        return view('reservering.create',['tables'=>\App\TableData::all()]);
-    })->name('reserveercreate');
+    Route::get('/reserveer',function() {return view('reservering.create',['tables'=>\App\TableData::all()]);})->name('reserveercreate');
 //    Route::post('/reserveer/create','ReserveerController@create');
     Route::post('/reserveer/update','ReserveerController@update');
     Route::get('/reserveer/delete/{id}','ReserveerController@delete');
@@ -63,10 +59,13 @@ Route::middleware('auth:web')->group(function() {
 });
 
 Route::middleware('auth:web')->group(function() {
+
     Route::get('/tafels', 'TafelController@index');
     Route::post('/tafels/update/{id}', 'TafelController@update');
     Route::post('/tafels/create', 'TafelController@create');
     Route::get('/tafels/delete/{id}', 'TafelController@delete');
+
+
 });
 
 

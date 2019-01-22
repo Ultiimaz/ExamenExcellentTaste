@@ -6,6 +6,8 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
@@ -16,9 +18,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $producten = Product::all();
+        if (Auth::user()->status == 2){
+            $producten = Product::all();
 
-        return view('product.overzicht', compact('producten'));
+            return view('product.overzicht', compact('producten'));
+        }
+        else{
+            return redirect('/home');
+        }
+
     }
 
     /**
