@@ -18,5 +18,8 @@ class Reservation extends Model
         return $this->hasOne('App\User', 'klantnummer', 'klantnummer')->get();
 
     }
+    public function table(){
+        return $this->hasMany('App\TableReservation', 'tafelnummer', 'tafelnummer');
+    }
 
 }
