@@ -21,6 +21,7 @@ class RestaurantTables extends Migration
             $table->integer('klantnummer'); //fk
 
         });
+
         //klantgegevens
         Schema::create('users', function (Blueprint $table) {
             $table->integer('klantnummer');
@@ -39,13 +40,18 @@ class RestaurantTables extends Migration
             $table->timestamps();
         });
 
-
         Schema::create('producten', function (Blueprint $table) {
             $table->increments('productnummer');   //Pk
             $table->string('productomschrijving');
             $table->decimal('prijs');
-
+            $table->string('category_id');
         });
+
+        Schema::create('product_categories', function(Blueprint $table) {
+            $table->increments('category_id');
+            $table->string('category_name');
+        });
+
         Schema::create('bestellingen', function (Blueprint $table) {
             $table->integer('device');          //pk,
             $table->timestamp('timestamp');     //pk,
@@ -53,9 +59,8 @@ class RestaurantTables extends Migration
             $table->string('prijsbetaald')->nullable();
             $table->integer('aantalbesteld');
             $table->integer('reserveernummer'); //FK
-
-
         });
+
         Schema::create('tafelgegevens', function (Blueprint $table) {
             $table->increments('tafelnummer');     //pk
             $table->integer('aantalstoelen');
@@ -71,14 +76,11 @@ class RestaurantTables extends Migration
 
         });
 
-
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
-
-
 
     }
 
@@ -97,6 +99,7 @@ class RestaurantTables extends Migration
         Schema::dropIfExists('tafelgegevens');
         Schema::dropIfExists('tafelreserveringen');
         Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('product_categories');
 
     }
 }

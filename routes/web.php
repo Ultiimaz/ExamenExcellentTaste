@@ -14,10 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::post('/register','Auth\RegisterController@create');
-Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -63,6 +63,9 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/producten/update/{id}', 'ProductController@update');
     Route::post('/producten/create', 'ProductController@create');
     Route::get('/producten/delete/{id}', 'ProductController@delete');
+
+    Route::post('/producten/categories/create', 'ProductController@categoriesCreate');
+    Route::get('/producten/categories/delete{id}', 'ProductController@categoriesDelete');
 });
 
 Route::middleware('auth:web')->group(function() {

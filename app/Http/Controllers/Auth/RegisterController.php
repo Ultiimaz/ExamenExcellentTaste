@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Mail\Registration;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
