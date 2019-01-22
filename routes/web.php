@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 Auth::routes();
 Route::post('/register','Auth\RegisterController@create');
@@ -26,9 +26,6 @@ Route::get('/home', function () {
 
 Route::get('/menukaart', function () {
     return view('menukaart');
-});
-Route::get('/beheerder', function () {
-    return view('beheerder');
 });
 
 Route::get('/profiel', function () {
@@ -44,9 +41,7 @@ Route::post('/profiel/update/{id}', 'ProfielController@update');
 //    Route::get('/profiel', 'ProfielController@index');
 //    Route::post('/profiel/update/{id}', 'ProductController@update');
 //});
-Route::get('/beheerder', function(){
-    return view('layouts.beheerder');
-});
+
 
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
