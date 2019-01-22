@@ -33,9 +33,15 @@
                             </tr>
                             <tr>
                                 <td class="text-muted">Voorletter/Achternaam:</td>
-                                <td ><input maxlength="1" name="voorletter" id="Gegevens" type="text" class="form-control" value="{{$user->voorletter}}"/></td>
-                                <td ><input name="voorvoegsel" id="Gegevens" type="text" class="form-control" value="{{$user->voorvoegsel}}"/></td>
-                                <td ><input name="achternaam" id="Gegevens" type="text" class="form-control" value="{{$user->achternaam}}"/></td>
+                                <td>
+                                <div class="input-group">
+                                <input maxlength="1" name="voorletter" id="Gegevens" type="text" class="small-input form-control" value="{{$user->voorletter}}"/>
+                                <input name="voorvoegsel" id="Gegevens" type="text" class="form-control" value="{{$user->voorvoegsel}}"/>
+                                <input name="achternaam" id="Gegevens" type="text" class="form-control" value="{{$user->achternaam}}"/>
+                                </div>
+                                </td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Telefoon:</td>
@@ -80,7 +86,8 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">komt nog iets(facturen?)</h4>
+                    <h4 class="card-title">Bekijk hier uw facturen</h4>
+                <a href="/nota" class="btn btn-block btn-danger text-white">Notas bekijken</a>
                     <div class="feed-widget">
 
 
@@ -89,6 +96,7 @@
             </div>
         </div>
     </div>
+
 
 
 @endsection

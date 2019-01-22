@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends("layouts.dashboard")
 
 @section('page')
     <table class="table table-striped">
@@ -10,31 +10,17 @@
         <th>Action</th>
         </thead>
         <tbody>
-
         @foreach($reserveringen as $reservering)
-            <?php
-            $date_now = date("m/d/Y");
 
-            $date= new DateTime($reservering->datum);
-            $date_convert = date_format($date,"m/d/Y");
-
-            if ($date_now > $date_convert) {
-                echo 'greater than';
-            }else{
-                echo 'Less than';
-            }
-            ?>
             <tr>
                 <td>{{$reservering->reserveernummer}}</td>
                 <td>{{$reservering->datum}}</td>
                 <td>{{$reservering->tijd}}</td>
                 <td>{{$reservering->klantnummer}}</td>
+                <td><a href="{{action('ProfielController@downloadPDF', $reservering->reserveernummer)}}">PDF</a></td>
             </tr>
         @endforeach
 
         </tbody>
     </table>
-
 @endsection
-
-

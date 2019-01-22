@@ -22,6 +22,18 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+
+Route::get('/downloadPDF/{reserveernummer}','ProfielController@downloadPDF');
+Route::get('/nota','ProfielController@nota');
+//Route::get('/nota',function(){
+//    $user = Auth::user();
+//
+//    return view('nota', ['user' => $user]);
+//
+//});
+
+
+
 Route::get('/menukaart', function () {
     return view('menukaart');
 });
@@ -45,6 +57,9 @@ Route::post('/profiel/update/{id}', 'ProfielController@update');
 Route::get('/beheerder', function(){
     return view('layouts.beheerder');
 });
+
+
+Route::post('submitForm','UserDetailController@store');
 
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
