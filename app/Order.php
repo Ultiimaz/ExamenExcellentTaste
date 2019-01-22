@@ -18,8 +18,7 @@ class Order extends Model
     }
 
     public function product(){
-        return $this->hasOne('App\Producten', 'productnummer', 'productnummer')->get();
-
+        return $this->hasOne('App\Product', 'productnummer', 'productnummer')->get();
     }
 }
 
