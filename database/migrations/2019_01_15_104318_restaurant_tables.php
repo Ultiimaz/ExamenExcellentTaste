@@ -44,7 +44,6 @@ class RestaurantTables extends Migration
             $table->increments('productnummer');   //Pk
             $table->string('productomschrijving');
             $table->decimal('prijs');
-            $table->string('categorie');
 
         });
         Schema::create('bestellingen', function (Blueprint $table) {

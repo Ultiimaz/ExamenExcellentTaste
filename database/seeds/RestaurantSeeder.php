@@ -37,7 +37,11 @@ class RestaurantSeeder extends Seeder
             ]);
 
 
-
+            DB::table('producten')->insert([
+                'productnummer' => 2400+$i,
+                'productomschrijving' => $faker->firstName(),
+                'prijs' => 2.00
+            ]);
             DB::table('bestellingen')->insert([
                 'device' => 1+$i,
                 'timestamp' => $faker->dateTime(),
