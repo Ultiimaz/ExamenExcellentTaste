@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
-
 Route::post('/register','Auth\RegisterController@create');
-Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 Route::get('/contact', function () {
     return view('contact');
+});
+Route::get('/home', function () {
+    return view('home');
 });
 
 
@@ -87,3 +89,14 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/tafels/delete/{id}', 'TafelController@delete');
 });
 
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::middleware('auth:web')->group(function() {
+    Route::get('/gebruikers', 'UserController@index');
+    Route::get('/gebruikers/{id}', 'UserController@view');
+    Route::post('/gebruikers/update/{id}', 'UserController@update');
+    Route::get('/gebruikers/block/{id}', 'UserController@block');
+    Route::get('/gebruikers/unblock/{id}', 'UserController@unblock');
+    Route::post('/gebruikers/create', 'UserController@create');
+    Route::get('/gebruikers/delete/{id}', 'UserController@delete');
+});

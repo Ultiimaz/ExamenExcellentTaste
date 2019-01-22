@@ -9,6 +9,7 @@ use App\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Symfony\Component\Console\Helper\Table;
 
 class ReserveerController extends Controller
 {
@@ -55,24 +56,35 @@ class ReserveerController extends Controller
         {
             return back()->withInput()->with('status',"U moet minimaal 1 gast invullen bij aantal gasten!");
         }
-        if(!$request->input('tafel') )
+        if(!$request->input('tafel1') )
         {
-            return back()->withInput()->with('status',"U moet eerst een stoel kiezen!");
+            return back()->withInput()->with('status',"U moet minimaal 1 tafel kiezen!");
         }
-        $reservation = Reservation::find(intval($request->input('tafel')));
+        $reservation = new Reservation;
         $reservation->reserveernummer = $this->generateReserveernummer();
         $reservation->aantalGasten = intval($request->input('aantal_gasten'));
         $reservation->klantnummer = Auth::user()->klantnummer;
         $reservation->datum = $request['datum'];
-         $tables = new TableReservation;
 
-        $tables->tijdin = Carbon::parse($request->input('datum'));
-         $tables->tijduit = Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time')));
-        $reservation->save();
-        $tables->reserveernummer = $reservation->reserveernummer;
-        $reservation->save();
-         $tables->save();
-        return redirect('reserveer');
+        DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel1'))->update(
+             [
+                'tijdin'=> Carbon::parse($request->input('datum')),
+                'tijduit'=> Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time'))),
+                'reserveernummer' => $reservation->reserveernummer
+             ]
+         );
+         if($request->has('tafel2')){
+             DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel2'))->update(
+                 [
+                     'tijdin'=> Carbon::parse($request->input('datum')),
+                     'tijduit'=> Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time'))),
+                     'reserveernummer' => $reservation->reserveernummer
+                 ]
+             );
+         }
+
+         $reservation->save();
+        return redirect('reserveer')->with('status','de reservering is geplaatst!');
     }
 
     /**
