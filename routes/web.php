@@ -20,9 +20,10 @@ Route::post('/register','Auth\RegisterController@create');
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::get('/home', function () {
-    return view('home');
-});
+//Route::get('/home', function () {
+//    return view('home');
+//});
+Route::get('/home','HomeController@index');
 
 
 Route::get('/downloadPDF/{reserveernummer}','ProfielController@downloadPDF');
