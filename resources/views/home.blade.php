@@ -69,17 +69,19 @@
                                 <?php
                                     $date_now = new DateTime();
                                     $date2    = new DateTime($reservering->datum);
+                                    $date2->add(new DateInterval('P01D'));
 
-                                    if ($date_now > $date2) {
-                                        echo  "";
-                                    }else{
-                                        echo '<tr>
+                                    if ($date_now < $date2) {
+                                        echo  '<tr>
                                             <td>', $reservering->reserveernummer,'</td>
                                             <td>', $reservering->datum,'</td>
                                             <td>', $reservering->tijd,'</td>
                                             <td>', $reservering->klantnummer,'</td>
-                                        </tr>';;
+                                        </tr>';
+                                    }else{
+
                                     }
+
                                 ?>
                             @endforeach
 
