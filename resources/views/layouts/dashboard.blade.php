@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
@@ -62,6 +63,7 @@
                 </nav>
             </div>
         </aside>
+
         <div class="page-wrapper">
             {{--<div class="page-breadcrumb">--}}
                 {{--<div class="row align-items-center">--}}
@@ -72,6 +74,7 @@
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
+             {{--@yield('landingpage')--}}
             <div class="container-fluid" style="min-height: calc(100vh - 120px);">
             @yield('page')
             </div>
