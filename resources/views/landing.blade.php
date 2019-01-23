@@ -71,6 +71,7 @@
                             Reserveren?
                             <br>
                             Dat kan hieronder, u kunt hier inloggen. Heeft u nog geen account?<br> dan kan u zich hier registereren
+
                         </p>
                         @guest
                                 <a class="btn btn-primary a" href="{{ route('login') }}">{{ __('Inloggen') }}</a>
@@ -79,9 +80,12 @@
 
                             @endif
                         @else
-                            <a class="btn btn-primary a" href="{{ route('login') }}">{{ Auth::user()->achternaam }}</a>
+                            <a class="btn btn-primary a" href="{{ route('login') }}">Naar mijn account</a>
                             <a style="" class="btn btn-danger logout" href="{{ route('logout') }}">Uitloggen</a>
-
+                            <br>
+                            <br>
+                            <br>
+                            <p style="color: rgb(255,255,255,0.8)">Ingelogde gebruiker: {{Auth::user()->voorletter}}. {{Auth::user()->achternaam}}</p>
                         @endguest
                         {{--<button type="button" href="{{ route('login') }}" class="btn">Inloggen</button>--}}
                        {{--<button type="button" class="btn">Registreren</button>--}}
