@@ -22,10 +22,14 @@
                             {
                                 return;
                             }
-                            if(!selectedTables[0])
-                            {
-                                return;
-                            }
+                            // if(!selectedTables[0])
+                            // {
+                            //     $("#body").prepend("<div class=\"alert alert-success\" role=\"alert\">\n" +
+                            //         "U moet minimaal 1 tafel kiezen \n" +
+                            //         "</div>\n");
+                            //
+                            //     return;
+                            // }
                             $.ajax({
                                 type: "post",
                                 data: {
@@ -71,6 +75,7 @@
                                     time: $("#time").val()
                                 },
                             }).done(function (response) {
+                                $('#tafel').empty();
                                 Object.values(response).forEach(function(tafel)
                                 {
                                     $('#tafel').append("<option name='tafel' value="+tafel.tafelnummer+" >tafelnummer: "+tafel.tafelnummer+"</option>");

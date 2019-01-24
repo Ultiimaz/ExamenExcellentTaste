@@ -14,13 +14,13 @@ class RestaurantSeeder extends Seeder
     {
         for ($i=0; $i < 5; $i++) {
             $faker = Faker::create();
-            DB::table('reserveringen')->insert([
-                'reserveernummer' => 12345678+$i,
-                'datum' => $faker->date(),
-                'tijd' => 25+$i,
-                'aantalgasten' => 6,
-                'klantnummer' => 1000+$i,
-            ]);
+//            DB::table('reserveringen')->insert([
+//                'reserveernummer' => 12345678+$i,
+//                'datum' => $faker->date(),
+//                'tijd' => 25+$i,
+//                'aantalgasten' => 6,
+//                'klantnummer' => 1000+$i,
+//            ]);
              DB::table('users')->insert([
                 'password'=> bcrypt('password'),
                 'klantnummer' => 1000+$i,
