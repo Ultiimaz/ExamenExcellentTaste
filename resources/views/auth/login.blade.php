@@ -8,18 +8,23 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="klantnummer" class="col-md-4 col-form-label text-md-right">{{ __('Klantnummer') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="klantnummer" type="text" class="form-control{{ $errors->has('klantnummer') ? ' is-invalid' : '' }}" name="klantnummer" value="{{ old('klantnummer') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('klantnummer'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('klantnummer') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -59,7 +64,7 @@
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('Wachtwoord vergeten?') }}
                                     </a>
                                 @endif
                             </div>
