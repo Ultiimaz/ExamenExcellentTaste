@@ -21,12 +21,15 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    public $maxAttempts = 3;
+    public $decayMinutes = 15;
+
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/profiel';
 
     /**
      * Get the login username to be used by the controller.
@@ -48,6 +51,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function authenticated(Request $request, $user) {
+        return redirect('/profiel');
+    }
+  
     public function logout(Request $request) {
         Auth::logout();
         return redirect('/home');
