@@ -148,11 +148,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Bekijk hier uw facturen</h4>
-                        <a href="/nota" class="btn btn-block btn-danger text-white">Notas bekijken</a>
-                    </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Bekijk hier uw facturen</h4>
+                    <a href="/nota" class="btn btn-block btn-danger text-white">Notas bekijken</a>
                 </div>
             </div>
         </div>
