@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
@@ -16,9 +19,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $producten = Product::all();
+        if (Auth::user()->status == 2){
+            $producten = Product::all();
+            $categories = ProductCategory::all();
 
-        return view('product.overzicht', compact('producten'));
+            return view('product.overzicht', ['producten' => $producten, 'categories' => $categories]);
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**
@@ -35,6 +44,7 @@ class ProductController extends Controller
         $product = new Product;
         $product->productomschrijving = $request->get('productomschrijving');
         $product->prijs = floatval($request->get('prijs'));
+        $product->category_id = $request->get('category');
         $product->save();
 
         return redirect('/producten')->with('status', 'Product is toegevoegd');
@@ -55,6 +65,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->productomschrijving = $request->get('productomschrijving');
         $product->prijs = $request->get('prijs');
+        $product->category_id = $request->get('category');
         $product->save();
 
         return redirect('/producten')->with('status', 'Product is aangepast');
@@ -72,5 +83,31 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect('/producten')->with('status', 'Product is verwijderd');
+    }
+
+    /**
+     * Create product category
+     *
+     * @return Response
+     */
+    public function categoriesCreate(Request $request) {
+        $category = new ProductCategory();
+        $category->category_name = $request->get('categoryname');
+        $category->save();
+
+        return redirect('/producten')->with('status', 'Categorie is toegevoegd');
+    }
+
+    /**
+     * Removes product category
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function categoriesDelete($id) {
+        $category = ProductCategory::find($id);
+        $category->delete();
+
+        return redirect('/producten')->with('status', 'Categorie is verwijderd');
     }
 }

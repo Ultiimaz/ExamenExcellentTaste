@@ -2,12 +2,17 @@
 
 namespace App;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    protected $table = 'user';
+    use Notifiable;
+    use CanResetPassword;
+
+    protected $table = 'users';
     protected $primaryKey = 'klantnummer';
     public $timestamps = false;
     public $incrementing = false;
@@ -23,9 +28,6 @@ class User extends Authenticatable
         else{
             return false;
         }
-
-
-
     }
 }
 
