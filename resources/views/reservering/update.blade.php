@@ -22,17 +22,13 @@
                                 {
                                     return;
                                 }
-                                if(!selectedTables[0])
-                                {
-                                    return;
-                                }
                                 $.ajax({
                                     type: "post",
                                     data: {
                                         datum: $("#reserveringstart").val(),
                                         time: $("#time").val(),
                                         tafel1: selectedTables[0],
-
+                                        dieetwensen: $('#dieetwensen').val(),
                                         tafel2: selectedTables[1],
                                         aantal_gasten: $("#aantal_gasten").val()
 
@@ -55,6 +51,8 @@
                                         time: $("#time").val()
                                     },
                                 }).done(function (response) {
+                                    $('#tafel').empty();
+                                    $('#tafel').append('<option>kies hier onder uw tafel!</option>');
                                     Object.values(response).forEach(function(tafel)
                                     {
                                         $('#tafel').append("<option name='tafel' value="+tafel.tafelnummer+" >tafelnummer: "+tafel.tafelnummer+"</option>");
@@ -136,7 +134,6 @@
                                         tafel
                                         <select name="tafel" class="form-control"  required id="tafel" onchange="addTafel(value)" title="">
                                             <option>kies hier uw tafel</option>
-
                                         </select>
                                     </div>
 
@@ -154,7 +151,7 @@
                                             <option class="form-control" value="7">7</option>
                                             <option class="form-control" value="8">8</option>
                                         </select>
-                                        <textarea id="dieet wensen" placeholder="vul hier uw dieetwensen in"></textarea>
+                                        <textarea id="dieetwensen" name="dieetwensen" placeholder="vul hier uw dieetwensen in"></textarea>
                                     </div>
                                     <div class="col-md-8 pt-5">
                                         <input type="submit" class="btn btn-primary" />
@@ -164,5 +161,7 @@
                         </form>
                     </div>
                 </div>
-
+            </div>
+        </div>
+    </div>
 @endsection

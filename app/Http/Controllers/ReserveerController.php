@@ -133,18 +133,18 @@ private $volgnummer = 0;
         }
 
         $reservation = Reservation::where('reserveernummer',$id);
-        dd($reservation);
         if($request->has('tafel2') )
         {
             $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'),$request['tafel2'],$request['tafel2']);
         }else
         {
-            $reservation->reserveernummer = $this->generateReserveernummerWithDatum($request['datum'], $request->input('tafel1'));
+            $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'), $request->input('tafel1'));
         }
         $reservation->aantalGasten = intval($request->input('aantal_gasten'));
         $reservation->klantnummer = Auth::user()->klantnummer;
-        $reservation->datum = $request['datum'];
+        $reservation->datum = Carbon::parse($request['datum']);
         $reservation->dieetwensen = $request['dieetwensen'];
+        $reservation->tijd = $request['time'];
 
         DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel1'))->update(
             [
@@ -153,7 +153,8 @@ private $volgnummer = 0;
                 'reserveernummer' => $reservation->reserveernummer
             ]
         );
-        if($request->has('tafel2')){
+        if($request->has('tafel2'))
+        {
             DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel2'))->update(
                 [
                     'tijdin'=> Carbon::parse($request->input('datum')),
