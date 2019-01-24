@@ -22,6 +22,7 @@ Route::post('/register','Auth\RegisterController@create');
 //Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 
 
+Route::post('/tables','ReserveerController@tables');
 
 
 Route::get('/downloadPDF/{reserveernummer}','ProfielController@downloadPDF');
@@ -82,12 +83,12 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/tafels/create', 'TafelController@create');
     Route::get('/tafels/delete/{id}', 'TafelController@delete');
 
-Route::get('/contact', function () {
-    return view('contact');
-});
-Route::get('/home', function () {
-    return view('home');
-});
+    Route::get('/contact', function () {
+        return view('contact');
+    });
+    Route::get('/home', function () {
+        return view('home');
+    });
 });
 
 
@@ -115,3 +116,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+?>

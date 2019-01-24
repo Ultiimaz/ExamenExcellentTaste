@@ -100,6 +100,7 @@ class RegisterController extends Controller
             ?: redirect($this->redirectPath())->with('status', 'Verficatiemail is verzonden, check uw mail om de registratie af te ronden.');
     }
 
+
     /**
      * Create random klantnummer
      */
