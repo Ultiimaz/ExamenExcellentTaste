@@ -3,14 +3,15 @@
 @section('page')
     <table class="table table-striped">
         <thead>
-        <th>ID</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>Zip Code</th>
-        <th>Action</th>
+        <th>Reserveernummer</th>
+        <th>Datum</th>
+        <th>Tijd</th>
+        <th>Klantnummer</th>
+        <th></th>
         </thead>
         <tbody>
-        @foreach($reserveringen as $reservering)
+
+        @foreach($reserveringen->sortByDesc('datum') as $reservering)
 
             <tr>
                 <td>{{$reservering->reserveernummer}}</td>

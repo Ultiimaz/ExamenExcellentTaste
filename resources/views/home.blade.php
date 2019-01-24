@@ -45,5 +45,55 @@
             </div>
         </div>
     </div>
+    <div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h3 class="card-title">Aankomende reservering(en)</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-lg-12">
+                        <table class="table table-striped">
+                            <thead>
+                            <th>Reserveernummer</th>
+                            <th>Datum</th>
+                            <th>Tijd</th>
+                            <th>Klantnummer</th>
+                            </thead>
+                            <tbody>
+                            @foreach($reserveringen as $reservering)
+                                <?php
+                                    $date_now = new DateTime();
+                                    $date2    = new DateTime($reservering->datum);
+                                    $date2->add(new DateInterval('P01D'));
+
+                                    if ($date_now < $date2) {
+                                        echo  '<tr>
+                                            <td>', $reservering->reserveernummer,'</td>
+                                            <td>', $reservering->datum,'</td>
+                                            <td>', $reservering->tijd,'</td>
+                                            <td>', $reservering->klantnummer,'</td>
+                                        </tr>';
+                                    }else{
+
+                                    }
+
+                                ?>
+                            @endforeach
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- column -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
 @endsection
