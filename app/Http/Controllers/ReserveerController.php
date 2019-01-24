@@ -66,7 +66,7 @@ class ReserveerController extends Controller
             return back()->withInput()->with('status',"U moet minimaal 1 gast invullen bij aantal gasten!");
         }
 
-            $tafel1 = $request->input('tafel1') | 1;
+            $tafel1 = $request->input('tafel1') || 1;
 
         $reservation = new Reservation;
         if($request->has('tafel2') )
@@ -159,11 +159,9 @@ class ReserveerController extends Controller
     {
         $all = TableReservation::all();
         $col = $all;
-
          $table =DB::table('tafelreserveringen')
              ->whereDate('tijdin' ,'<=',Carbon::parse($request->input('datum')))
-             ->whereDate('tijduit','>=',Carbon::parse($request->input('datum'))
-                 ->addMinute(120));
+             ->whereDate('tijdin','>=',Carbon::parse($request->input('datum'))->addMinute(120));
 
 //        for($i= 0; $i < count($col->toArray());$i++)
 //        {
