@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\TableData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class TafelController extends Controller
 {
@@ -15,9 +16,15 @@ class TafelController extends Controller
      */
     public function index()
     {
-        $tafels = TableData::all();
+        if (Auth::user()->status == 2){
+            $tafels = TableData::all();
 
-        return view('tafel.overzicht', compact('tafels'));
+            return view('tafel.overzicht', compact('tafels'));
+        }
+        else{
+            return redirect('/home');
+        }
+
     }
 
     /**

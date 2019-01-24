@@ -19,10 +19,17 @@
          */
         public function index()
         {
+            if (Auth::user()->status == 2){
             $users = User::all();
+                return view('user.overzicht', compact('users'));
 
-            return view('user.overzicht', compact('users'));
+            }
+            else{
+                return redirect('/');
+            }
+
         }
+
 
         /**
          * Update the specified resource in storage.

@@ -65,7 +65,6 @@ class ReserveerController extends Controller
         $reservation->aantalGasten = intval($request->input('aantal_gasten'));
         $reservation->klantnummer = Auth::user()->klantnummer;
         $reservation->datum = $request['datum'];
-        $reservation->tijd = $request['time'];
 
         DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel1'))->update(
              [
@@ -83,7 +82,8 @@ class ReserveerController extends Controller
                  ]
              );
          }
-           $reservation->save();
+
+         $reservation->save();
         return redirect('reserveer')->with('status','de reservering is geplaatst!');
     }
 
