@@ -38,9 +38,7 @@ Route::get('/nota','ProfielController@nota');
 
 
 
-Route::get('/menukaart', function () {
-    return view('menukaart');
-});
+Route::get('/menukaart', 'MenuController@index');
 
 Route::get('/profiel', function () {
 
