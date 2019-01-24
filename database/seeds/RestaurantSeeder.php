@@ -12,8 +12,6 @@ class RestaurantSeeder extends Seeder
      */
     public function run()
     {
-
-
         for ($i=0; $i < 5; $i++) {
             $faker = Faker::create();
             DB::table('reserveringen')->insert([

@@ -13,16 +13,16 @@
                     <div class="row">
                         <table class="table table-striped">
                             <thead>
-                            <th>Reserveernummer</th>
-                            <th>Datum</th>
-                            <th>Tijd</th>
+                            <th></th>
+                            <th>Gerecht</th>
+                            <th>Prijs</th>
                             </thead>
                             <tbody>
-                        @foreach($producten->sortByDesc('productbeschrijving') as $product)
+                        @foreach($producten->sortByDesc('category_id') as $product)
                             <tr>
-                                <td>{{$product->productnummer}}</td>
+                                <td>{{$product->category_id}}</td>
                                 <td>{{$product->productomschrijving}}</td>
-                                <td>{{$product->prijs}}</td>
+                                <td>€{{$product->prijs}}</td>
                             </tr>
                             @endforeach
                             </tbody>
