@@ -197,17 +197,19 @@
         <div class="col-md-12">
             <h1 class="text-center">Contact</h1>
             <div class="row">
-                <div class="col-md-3">
-                    Middageten
+                <div class="col-md-2 offset-md-4">
+                    Adres: Hofstraat 1 <br />
+                    Postcode: 7311 KN <br />
+                    Plaats: Apeldoorn<br /><br />
+                    Telefoonnummer: 055 378 2473<br />
+                    Email: Excellent-Taste@gmail.com <br /><br />
+
                 </div>
-                <div class="col-md-3">
-                    Avondeten
+                <div class="row">
+                <div class="col-md-7 offset-md-4">
+                    Openingstijden:<br />
+                    Maandag tot zondag kunt u bij ons terecht van 10:00 tot 23:00 uur <br />
                 </div>
-                <div class="col-md-3">
-                    Service
-                </div>
-                <div class="col-md-3">
-                    Alles er op en er aan
                 </div>
             </div>
         </div>

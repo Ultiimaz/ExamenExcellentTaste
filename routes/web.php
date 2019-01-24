@@ -45,7 +45,7 @@ Route::get('/profiel', function () {
 
     return view('/profiel', ['user' => $user]);
 
-})->name('profiel');
+})->middleware(['auth:web', 'verified'])->name('profiel');
 
 Route::post('/profiel/update/{id}', 'ProfielController@update');
 Route::post('/profiel/wachtwoordveranderen/{id}', 'ProfielController@resetPassword');
