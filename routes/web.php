@@ -17,12 +17,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::post('/register','Auth\RegisterController@create');
 //Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
-Route::get('/contact', function () {
-    return view('contact');
-});
-Route::get('/home', function () {
-    return view('home');
-});
+
 
 
 Route::get('/downloadPDF/{reserveernummer}','ProfielController@downloadPDF');
@@ -93,4 +88,12 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/gebruikers/unblock/{id}', 'UserController@unblock');
     Route::post('/gebruikers/create', 'UserController@create');
     Route::get('/gebruikers/delete/{id}', 'UserController@delete');
+
+
+    Route::get('/contact', function () {
+        return view('contact');
+    });
+    Route::get('/home', function () {
+        return view('home');
+    });
 });
