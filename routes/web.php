@@ -62,10 +62,15 @@ Route::post('submitForm','UserDetailController@store');
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
 {
-    Route::get('/reserveer',function() {return view('reservering.create',['tables'=>\App\TableData::all()]);})->name('reserveercreate');
+    Route::get('/reserveer',function() {return view('reservering.create');})->name('reserveercreate');
 //    Route::post('/reserveer/create','ReserveerController@create');
     Route::post('/reserveer/update','ReserveerController@update');
     Route::get('/reserveer/delete/{id}','ReserveerController@delete');
+    Route::get('reserveer/list','ReserveerController@index');
+    Route::get('/reserveer/update/{id}',function($id)
+    {
+        return view('reservering.update');
+    });
 });
 
 Route::middleware('auth:web')->group(function() {
