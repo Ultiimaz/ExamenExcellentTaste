@@ -86,11 +86,72 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Bekijk hier uw facturen</h4>
-                <a href="/nota" class="btn btn-block btn-danger text-white">Notas bekijken</a>
-                    <div class="feed-widget">
+                    <h4 class="card-title">Wachtwoord wijzigen</h4>
+                    @if (session('password'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('password') }}
+                        </div>
+                    @endif
+                    <form method="post" action="/profiel/wachtwoordveranderen/{{ $user->klantnummer }}">
+                        @csrf
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Huidige wachtwoord') }}</label>
 
+                            <div class="col-md-8">
+                                <input id="passowrd" type="password" class="form-control{{ $errors->has('currentpassword') ? ' is-invalid' : '' }}" name="currentpassword"required>
 
+                                @if ($errors->has('currentpassword'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('currentpassword') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Nieuw Wachtwoord') }}</label>
+
+                            <div class="col-md-8">
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                <p id="passwordHelpBlock" class="form-text text-muted">
+                                    Uw wachtwoord moet langer zijn dan 8 tekens, moet ten minste 1 hoofdletter, 1 kleine letter, 1 numeriek teken en 1 speciaal teken bevatten.
+                                </p>
+                                @if ($errors->has('password'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Wachtwoord bevestigen') }}</label>
+
+                            <div class="col-md-8">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row ">
+                            <div class="col-md-8">
+                                {!! Captcha::display() !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-8 offset-md-4">
+                                <button class="btn btn-success">Wachtwoord wijzigen</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bekijk hier uw facturen</h4>
+                        <a href="/nota" class="btn btn-block btn-danger text-white">Notas bekijken</a>
                     </div>
                 </div>
             </div>
