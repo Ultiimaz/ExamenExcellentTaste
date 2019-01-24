@@ -128,12 +128,16 @@ class ReserveerController extends Controller
         }
 
         $reservation = Reservation::find($id);
-        $reservation->reserveernummer = $this->generateReserveernummerWithDatum();
-        dd($reservation->reserveernummer);
+        if($request->has('tafel2') )
+        {
+            $reservation->reserveernummer = intval($this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'),$request['tafel2'],$request['tafel2']));
+        }else
+        {
+            $reservation->reserveernummer = intval($this->generateReserveernummerWithDatum($request['datum'],$tafel1));
+        }
         $reservation->aantalGasten = intval($request->input('aantal_gasten'));
         $reservation->klantnummer = Auth::user()->klantnummer;
         $reservation->datum = $request['datum'];
-        $reservation->tijd = $request['time'];
 
         DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel1'))->update(
             [
@@ -142,17 +146,18 @@ class ReserveerController extends Controller
                 'reserveernummer' => $reservation->reserveernummer
             ]
         );
-//        if($request->has('tafel2')){
-//            DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel2'))->update(
-//                [
-//                    'tijdin'=> Carbon::parse($request->input('datum')),
-//                    'tijduit'=> Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time'))),
-//                    'reserveernummer' => $reservation->reserveernummer
-//                ]
-//            );
-//        }
+        if($request->has('tafel2')){
+            DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel2'))->update(
+                [
+                    'tijdin'=> Carbon::parse($request->input('datum')),
+                    'tijduit'=> Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time'))),
+                    'reserveernummer' => $reservation->reserveernummer
+                ]
+            );
+        }
+
         $reservation->save();
-        return redirect('reserveer')->with('status','de reservering is geplaatst!');
+        return response()->json('de reservering is geplaatst!');
     }
 
     public function tables(Request $request)
