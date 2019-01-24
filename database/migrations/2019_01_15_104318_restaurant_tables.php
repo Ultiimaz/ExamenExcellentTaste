@@ -64,7 +64,7 @@ class RestaurantTables extends Migration
         });
 
         Schema::create('tafelreserveringen', function (Blueprint $table) {
-            $table->integer('reserveernummer'); //fk, pk
+            $table->increments('reserveernummer'); //fk, pk
             $table->integer('tafelnummer');     //fk, pk
             $table->dateTime('tijdin');
             $table->dateTime('tijduit');

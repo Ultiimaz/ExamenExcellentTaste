@@ -91,6 +91,7 @@ class RegisterController extends Controller
         return redirect('/login')->with('status', 'Registratie email is verzonden');
     }
 
+
     /**
      * Create random klantnummer
      */

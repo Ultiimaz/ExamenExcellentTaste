@@ -8,9 +8,8 @@ class Reservation extends Model
 {
 
     protected $table = 'reserveringen';
-    protected $primaryKey = 'reserveernummer';
+    protected $primaryKey = ['reserveernummer','tafelnummer'];
     public $timestamps = false;
-    public $incrementing = false;
     protected $fillable = ['aantal_gasten', 'tijd', 'datum'];
 
     public function customer()
@@ -18,5 +17,8 @@ class Reservation extends Model
         return $this->hasOne('App\User', 'klantnummer', 'klantnummer')->get();
 
     }
-
+    public function reservedTables()
+    {
+        return $this->hasMany(TableReservation::class,'reserveernummer', 'reserveernummer');
+    }
 }

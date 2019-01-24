@@ -42,11 +42,40 @@
                                 $("#body").prepend("<div class=\"alert alert-success\" role=\"alert\">\n" +
                                     "Uw reservering is geplaatst \n" +
                                     "</div>\n");
-                                setInterval(function() {
-                                    location.reload();
-                                }, 5000);
+                                // setInterval(function() {
+                                //     location.reload();
+                                // }, 5000);
 
                             })
+                        }
+                        // function unique(word) {
+                        //         var a = [];
+                        //         var l = word.length;
+                        //         for(var i=0; i<l; i++) {
+                        //             for(var j=i+1; j<l; j++) {
+                        //                 // If this[i] is found later in the array
+                        //                 if (word[i] === word[j])
+                        //                     j = ++i;
+                        //             }
+                        //             a.push(word[i]);
+                        //         }
+                        //         return a;
+                        //     }
+
+                        function getAvailableDates() {
+                            $.ajax({
+                                url: "/tables",
+                                type: "post",
+                                data: {
+                                    datum: $("#reserveringstart").val(),
+                                    time: $("#time").val()
+                                },
+                            }).done(function (response) {
+                                Object.values(response).forEach(function(tafel)
+                                {
+                                    $('#tafel').append("<option name='tafel' value="+tafel.tafelnummer+" >tafelnummer: "+tafel.tafelnummer+"</option>");
+                                });
+                            });
                         }
                     </script>
                     <form method="post" onsubmit="event.preventDefault();onSubmit()">
@@ -64,9 +93,10 @@
                                     </div>
                                     <div class="col-md-8">
                                         hoelang:
-                                        <select name="time" class="form-control" id="time" title="" required>
-                                            <option class="form-control" value="30">30 minuten</option>
+                                        <select name="time" class="form-control" id="time"  onchange="getAvailableDates()" title="" required>
+                                            <option>kies hier een tijd</option>
                                             <option class="form-control" value="60">1 uur</option>
+                                            <option class="form-control" value="90">anderhalf uur</option>
                                             <option class="form-control" value="120"> 2 uur</option>
                                         </select>
                                     </div>
@@ -122,9 +152,7 @@
                                         tafel
                                         <select name="tafel" class="form-control"  required id="tafel" onchange="addTafel(value)" title="">
                                             <option>kies hier uw tafel</option>
-                                            @foreach($tables->where('status',1) as $table)
-                                                <option name="tafel"  value="{{$table->tafelnummer}}">tafel nummer: {{$table->tafelnummer}} aantal stoelen: {{$table->aantalstoelen}}</option>
-                                            @endforeach
+
                                         </select>
                                     </div>
 

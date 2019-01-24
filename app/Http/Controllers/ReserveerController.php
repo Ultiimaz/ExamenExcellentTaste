@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TableReservation;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Reservation;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,13 @@ class ReserveerController extends Controller
      */
     public function index()
     {
-        return view('reservering.index');
+        $reserveringen =Reservation::where('klantnummer',Auth::user()->klantnummer);
+        foreach($reserveringen->get()as $reservering)
+        {
+//            dd($reservering);
+        }
+
+        return view('reservering.index',['reserveringen' =>$reserveringen]);
     }
 
     /**
@@ -104,7 +111,71 @@ class ReserveerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(!$request->input('aantal_gasten') )
+        {
+            return back()->withInput()->with('status',"U moet eerst aantal gasten invullen!");
+        }
+        if($request->input('aantal_gasten') == 0)
+        {
+            return back()->withInput()->with('status',"U moet minimaal 1 gast invullen bij aantal gasten!");
+        }
+        if(!$request->input('tafel1') )
+        {
+            return back()->withInput()->with('status',"U moet minimaal 1 tafel kiezen!");
+        }
+        $reservation = Reservation::find($id);
+        $reservation->reserveernummer = $this->generateReserveernummer();
+        $reservation->aantalGasten = intval($request->input('aantal_gasten'));
+        $reservation->klantnummer = Auth::user()->klantnummer;
+        $reservation->datum = $request['datum'];
+        $reservation->tijd = $request['time'];
+
+        DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel1'))->update(
+            [
+                'tijdin'=> Carbon::parse($request->input('datum')),
+                'tijduit'=> Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time'))),
+                'reserveernummer' => $reservation->reserveernummer
+            ]
+        );
+        if($request->has('tafel2')){
+            DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel2'))->update(
+                [
+                    'tijdin'=> Carbon::parse($request->input('datum')),
+                    'tijduit'=> Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time'))),
+                    'reserveernummer' => $reservation->reserveernummer
+                ]
+            );
+        }
+        $reservation->save();
+        return redirect('reserveer')->with('status','de reservering is geplaatst!');
+    }
+
+    public function tables(Request $request)
+    {
+        $all = TableReservation::all();
+        $col = $all;
+
+         $table =DB::table('tafelreserveringen')->whereDate('tijdin' ,'<=','2019-01-23 13:29:41')->where('tijduit','>=','2019-01-23 15:29:41');
+
+        for($i= 0; $i < count($all->toArray());$i++)
+        {
+            foreach($table->get() as $entity)
+            {
+                if($entity->tafelnummer == $all[$i]->tafelnummer)
+                {
+                    $col->forget($entity);
+
+                }
+            }
+//                dd($col->toArray());
+            return response()->json($col->toArray());
+
+        }
+
+    }
+    public function prereservedTables(Request $request)
+    {
+
     }
 
     /**
@@ -115,7 +186,13 @@ class ReserveerController extends Controller
      */
     public function delete($id)
     {
-        return Response()->json("fdjgklkfg");
-//        return Route('overzicht');
+        $user = Auth::user();
+        $reservering = Reservation::where('reserveernummer', $id);
+        if($reservering->first()->klantnummer== $user->klantnummer)
+        {
+            $reservering->delete();
+//            return response()->json("je moeder is een pietje");
+        }
+        return redirect('reserveer/lijst');
     }
 }

@@ -11,6 +11,9 @@
 |
 */
 
+use App\Reservation;
+use App\TableReservation;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,13 +24,20 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstat
 Route::get('/contact', function () {
     return view('contact');
 });
-
+Route::post('/tables','ReserveerController@tables');
 Route::get('/menukaart', function () {
     return view('menukaart');
 });
 Route::get('/beheerder', function () {
     return view('beheerder');
 });
+Route::get('/reserveer/update/{id}',function($id)
+{
+    $reservering = Reservation::where('reserveernummer', $id);
+//    dd($reservering->get()->first());
+    return view('reservering.update',['tables'=>\App\TableData::all(),'reservation' =>$reservering->get()->first()]);
+});
+Route::post('/reserveer/update/{id}','ReserveerController@update');
 
 Route::get('/profiel', function () {
 
@@ -45,7 +55,6 @@ Route::post('/profiel/update/{id}', 'ProfielController@update');
 Route::get('/beheerder', function(){
     return view('layouts.beheerder');
 });
-
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
 {
@@ -53,9 +62,8 @@ Route::middleware('auth:web')->group(function()
     {
         return view('reservering.create',['tables'=>\App\TableData::all()]);
     })->name('reserveercreate');
-//    Route::post('/reserveer/create','ReserveerController@create');
-    Route::post('/reserveer/update','ReserveerController@update');
     Route::get('/reserveer/delete/{id}','ReserveerController@delete');
+    Route::get('/reserveer/lijst','ReserveerController@index');
 });
 
 Route::middleware('auth:web')->group(function() {
