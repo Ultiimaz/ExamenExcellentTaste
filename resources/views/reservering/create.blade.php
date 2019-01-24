@@ -76,6 +76,7 @@
                                 },
                             }).done(function (response) {
                                 $('#tafel').empty();
+                                $('#tafel').append('<option>kies hier onder uw tafel!</option>');
                                 Object.values(response).forEach(function(tafel)
                                 {
                                     $('#tafel').append("<option name='tafel' value="+tafel.tafelnummer+" >tafelnummer: "+tafel.tafelnummer+"</option>");
@@ -186,5 +187,7 @@
                     </form>
                 </div>
             </div>
-
+        </div>
+    </div>
+</div>
 @endsection

@@ -166,7 +166,7 @@ class ReserveerController extends Controller
         $col = $all;
          $table =DB::table('tafelreserveringen')
              ->whereDate('tijdin' ,'<=',Carbon::parse($request->input('datum')))
-             ->whereDate('tijdin','>=',Carbon::parse($request->input('datum'))->addMinute(120));
+             ->whereDate('tijduit','>=',Carbon::parse($request->input('datum')));
 
 //        for($i= 0; $i < count($col->toArray());$i++)
 //        {
@@ -180,14 +180,13 @@ class ReserveerController extends Controller
 //            }
 //
 //        }
-
             foreach($col as $collection)
             {
                 foreach($table->get() as $entity)
                 {
                     if($entity->tafelnummer == $collection->tafelnummer)
                     {
-                        $col->forget($entity);
+                        $col->forget($entity->tafelnummer - 1);
                     }
                 }
             }
