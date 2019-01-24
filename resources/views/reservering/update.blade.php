@@ -42,25 +42,25 @@
                                     $("#body").prepend("<div class=\"alert alert-success\" role=\"alert\">\n" +
                                         "Uw reservering is geplaatst \n" +
                                         "</div>\n");
-                                    setInterval(function() {
-                                        location.reload();
-                                    }, 5000);
+                                    // setInterval(function() {
+                                    //     location.reload();
+                                    // }, 5000);
 
                                 })
                             }
-                            function unique(word) {
-                                var a = [];
-                                var l = word.length;
-                                for(var i=0; i<l; i++) {
-                                    for(var j=i+1; j<l; j++) {
-                                        // If this[i] is found later in the array
-                                        if (word[i] === word[j])
-                                            j = ++i;
-                                    }
-                                    a.push(word[i]);
-                                }
-                                return a;
-                            }
+                            // function unique(word) {
+                            //         var a = [];
+                            //         var l = word.length;
+                            //         for(var i=0; i<l; i++) {
+                            //             for(var j=i+1; j<l; j++) {
+                            //                 // If this[i] is found later in the array
+                            //                 if (word[i] === word[j])
+                            //                     j = ++i;
+                            //             }
+                            //             a.push(word[i]);
+                            //         }
+                            //         return a;
+                            //     }
 
                             function getAvailableDates() {
                                 $.ajax({
@@ -71,16 +71,10 @@
                                         time: $("#time").val()
                                     },
                                 }).done(function (response) {
-                                    $('#tafel').empty();
-                                    console.log("response",response);
-                                    var res = unique(response);
-                                    res.forEach(function(tafel)
+                                    Object.values(response).forEach(function(tafel)
                                     {
-                                        console.log(unique(tafel));
-                                        $('#tafel').append("<option name='tafel' value="+tafel+" >tafelnummer: "+tafel+"</option>");
+                                        $('#tafel').append("<option name='tafel' value="+tafel.tafelnummer+" >tafelnummer: "+tafel.tafelnummer+"</option>");
                                     });
-                                    {{--                            <option name="tafel"  value="{{$table->tafelnummer}}">tafel nummer: {{$table->tafelnummer}} aantal stoelen: {{$table->aantalstoelen}}</option>--}}
-
                                 });
                             }
                         </script>
@@ -176,6 +170,7 @@
                                             <option class="form-control" value="7">7</option>
                                             <option class="form-control" value="8">8</option>
                                         </select>
+                                        <textarea id="dieet wensen" placeholder="vul hier uw dieetwensen in"></textarea>
                                         {{--<input type="text" placeholder="6" required name="aantal_gasten" class="form-control col-md-2 col-xs-1" />--}}
                                     </div>
                                     <div class="col-md-8 pt-5">

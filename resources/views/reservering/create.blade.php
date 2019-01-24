@@ -170,6 +170,7 @@
                                             <option class="form-control" value="7">7</option>
                                             <option class="form-control" value="8">8</option>
                                         </select>
+                                        <textarea id="dieet wensen" placeholder="vul hier uw dieetwensen in"></textarea>
                                         {{--<input type="text" placeholder="6" required name="aantal_gasten" class="form-control col-md-2 col-xs-1" />--}}
                                     </div>
                                     <div class="col-md-8 pt-5">
