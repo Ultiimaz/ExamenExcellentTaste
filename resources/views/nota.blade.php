@@ -10,7 +10,8 @@
         <th></th>
         </thead>
         <tbody>
-        @foreach($reserveringen as $reservering)
+
+        @foreach($reserveringen->sortByDesc('datum') as $reservering)
 
             <tr>
                 <td>{{$reservering->reserveernummer}}</td>
