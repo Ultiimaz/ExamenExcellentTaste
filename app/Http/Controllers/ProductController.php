@@ -7,6 +7,8 @@ use App\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
@@ -17,10 +19,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $producten = Product::all();
-        $categories = ProductCategory::all();
+        if (Auth::user()->status == 2){
+            $producten = Product::all();
+            $categories = ProductCategory::all();
 
-        return view('product.overzicht', ['producten' => $producten, 'categories' => $categories]);
+            return view('product.overzicht', ['producten' => $producten, 'categories' => $categories]);
+        }
+        else{
+            return redirect('/home');
+        }
     }
 
     /**

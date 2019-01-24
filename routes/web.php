@@ -12,29 +12,44 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
 Auth::routes(['verify' => true]);
 
 Route::post('/register','Auth\RegisterController@create');
 Route::get('/home', function() {
     return view('profiel');
 });
+
+//Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
+
 Route::get('/contact', function () {
     return view('contact');
 });
+Route::get('/home', function () {
+    return view('home');
+});
+
+
+Route::get('/downloadPDF/{reserveernummer}','ProfielController@downloadPDF');
+Route::get('/nota','ProfielController@nota');
+//Route::get('/nota',function(){
+//    $user = Auth::user();
+//
+//    return view('nota', ['user' => $user]);
+//
+//});
+
+
 
 Route::get('/menukaart', function () {
     return view('menukaart');
-});
-Route::get('/beheerder', function () {
-    return view('beheerder');
 });
 
 Route::get('/profiel', function () {
 
     $user = Auth::user();
-
 
     return view('/profiel', ['user' => $user]);
 
@@ -46,17 +61,15 @@ Route::post('/profiel/wachtwoordveranderen/{id}', 'ProfielController@resetPasswo
 //    Route::get('/profiel', 'ProfielController@index');
 //    Route::post('/profiel/update/{id}', 'ProductController@update');
 //});
-Route::get('/beheerder', function(){
-    return view('layouts.beheerder');
-});
+
+
+
+Route::post('submitForm','UserDetailController@store');
 
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
 {
-    Route::get('/reserveer',function()
-    {
-        return view('reservering.create',['tables'=>\App\TableData::all()]);
-    })->name('reserveercreate');
+    Route::get('/reserveer',function() {return view('reservering.create',['tables'=>\App\TableData::all()]);})->name('reserveercreate');
 //    Route::post('/reserveer/create','ReserveerController@create');
     Route::post('/reserveer/update','ReserveerController@update');
     Route::get('/reserveer/delete/{id}','ReserveerController@delete');
@@ -73,12 +86,17 @@ Route::middleware('auth:web')->group(function() {
 });
 
 Route::middleware('auth:web')->group(function() {
+
     Route::get('/tafels', 'TafelController@index');
     Route::post('/tafels/update/{id}', 'TafelController@update');
     Route::post('/tafels/create', 'TafelController@create');
     Route::get('/tafels/delete/{id}', 'TafelController@delete');
+
+
 });
 
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::middleware('auth:web')->group(function() {
     Route::get('/gebruikers', 'UserController@index');
     Route::get('/gebruikers/{id}', 'UserController@view');
@@ -88,7 +106,5 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/gebruikers/create', 'UserController@create');
     Route::get('/gebruikers/delete/{id}', 'UserController@delete');
 });
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

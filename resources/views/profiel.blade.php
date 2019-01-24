@@ -33,9 +33,15 @@
                             </tr>
                             <tr>
                                 <td class="text-muted">Voorletter/Achternaam:</td>
-                                <td ><input maxlength="1" name="voorletter" id="Gegevens" type="text" class="form-control" value="{{$user->voorletter}}"/></td>
-                                <td ><input name="voorvoegsel" id="Gegevens" type="text" class="form-control" value="{{$user->voorvoegsel}}"/></td>
-                                <td ><input name="achternaam" id="Gegevens" type="text" class="form-control" value="{{$user->achternaam}}"/></td>
+                                <td>
+                                <div class="input-group">
+                                <input maxlength="1" name="voorletter" id="Gegevens" type="text" class="small-input form-control" value="{{$user->voorletter}}"/>
+                                <input name="voorvoegsel" id="Gegevens" type="text" class="form-control" value="{{$user->voorvoegsel}}"/>
+                                <input name="achternaam" id="Gegevens" type="text" class="form-control" value="{{$user->achternaam}}"/>
+                                </div>
+                                </td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td class="text-muted">Telefoon:</td>
@@ -88,7 +94,6 @@
                     @endif
                     <form method="post" action="/profiel/wachtwoordveranderen/{{ $user->klantnummer }}">
                         @csrf
-
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Huidige wachtwoord') }}</label>
 
@@ -143,9 +148,16 @@
                         </div>
                     </form>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Bekijk hier uw facturen</h4>
+                        <a href="/nota" class="btn btn-block btn-danger text-white">Notas bekijken</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 
 
 @endsection

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -54,5 +54,10 @@ class LoginController extends Controller
 
     public function authenticated(Request $request, $user) {
         return redirect('/profiel');
+    }
+  
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/home');
     }
 }
