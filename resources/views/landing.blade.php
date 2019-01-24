@@ -1,6 +1,5 @@
 @include('layouts.head')
 
-
     <style>
         .landingpage{
             overflow-y:auto ;
@@ -82,18 +81,9 @@
                 display: none;
             }
         }
-
-
     </style>
 
 <body class="landingpage">
-
-
-
-
-
-
-
     <div class="row">
         <div class="col-md-12">
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -164,12 +154,9 @@
                 Alles er op en er aan
             </div>
         </div>
-
-
     </div>
 </div>
-
-    <div class="row " style="min-height: 500px; background-color: #9abeff; padding-top: 10px; max-height: auto;">
+    <div class="row " style="min-height: 500px; background-color: #5bc0de; padding-top: 10px; max-height: auto;">
         <div class="col-md-12">
             <h1 class="text-center">Menu</h1>
             <div class="row">
@@ -179,13 +166,12 @@
                         <div class="card">
                             <div class="card-header" id="headingOne">
                                 <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $category->category_id }}" aria-expanded="true" aria-controls="collapse{{ $category->category_id }}">
                                         {{$category->category_name}}
                                     </button>
                                 </h2>
                             </div>
-
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div id="collapse{{ $category->category_id }}" class="collapse show" data-collapse="{{ $category->category_id }}" aria-labelledby="heading{{ $category->category_id }}" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <table>
                                     @foreach($producten->sortBy('category_id') as $product)
@@ -198,45 +184,39 @@
                                             @endif
                                     @endforeach
                                     </table>
-
                                 @if($category->category_id === 2 )
                                             <p>Alle hoofdgerechten worden geserveerd met twee soorten groenten, gebakken aardappeltjes en frites</p>
                                             @endif
-
                                 </div>
                             </div>
                         </div>
                         @endforeach
-
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-
-
-    <div class="row " style="height: 200px; background-color: #ffa874; padding-top: 10px;">
-    <div class="col-md-12">
-        <h1 class="text-center">Contact</h1>
+    <div style="height: 200px; background-color: #d9534f; padding-top: 10px;">
         <div class="row">
-            <div class="col-md-3">
-                Middageten
-            </div>
-            <div class="col-md-3">
-                Avondeten
-            </div>
-            <div class="col-md-3">
-                Service
-            </div>
-            <div class="col-md-3">
-                Alles er op en er aan
+            <div class="col text-center">
+                <h3>Contact</h3>
             </div>
         </div>
-
-
+        <div class="row text-center">
+            <div class="col">
+                Adres: Hofstraat 1 <br />
+                Postcode: 7311 KN <br />
+                Plaats: Apeldoorn<br /><br />
+                Telefoonnummer: 055 378 2473<br />
+                Email: Excellent-Taste@gmail.com <br /><br />
+            </div>
+            <div class="col text-center">
+                Openingstijden:<br />
+                Ma/Vrij:  16:00-22:00<br />
+                Za/Zo:    12:00-23:00
+            </div>
+        </div>
     </div>
-</div>
 </div>
 </body>
+
