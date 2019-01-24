@@ -179,13 +179,13 @@
                         <div class="card">
                             <div class="card-header" id="headingOne">
                                 <h2 class="mb-0">
-                                    <button id="categorieClick" class="btn btn-link" type="button" data-product="{{ $category->category_id }}" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                         {{$category->category_name}}
                                     </button>
                                 </h2>
                             </div>
 
-                            <div id="categorie" data-product="{{ $category->category_id }}"  class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <table>
                                     @foreach($producten->sortBy('category_id') as $product)
@@ -221,7 +221,18 @@
     <div class="col-md-12">
         <h1 class="text-center">Contact</h1>
         <div class="row">
-
+            <div class="col-md-3">
+                Middageten
+            </div>
+            <div class="col-md-3">
+                Avondeten
+            </div>
+            <div class="col-md-3">
+                Service
+            </div>
+            <div class="col-md-3">
+                Alles er op en er aan
+            </div>
         </div>
 
 
@@ -229,38 +240,3 @@
 </div>
 </div>
 </body>
-
-@section('scripts')
-    <script>
-        $( document ).ready(function() {
-            // $(document).click(function() {
-            //     $('#productomschrijving').removeClass('form-control').addClass('form-control-plaintext');
-            // });
-            //
-            // $('#productomschrijving').click(function (event) {
-            //     $('#productomschrijving').removeClass('form-control-plaintext').addClass('form-control');
-            //     event.stopPropagation();
-            // });
-            //
-            // $(".product").on("input", function() {
-            //     var a = $(this).data('product');
-            //     $('.edit-pulse-' + a).addClass('pulse-button');
-            // });
-            //
-            // $("#product-filter").on("keyup", function() {
-            //     var value = $(this).val().toLowerCase();
-            //     $("#product-table tr").filter(function() {
-            //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            //     });
-            // });
-            //
-            // $("#category-filter").on("keyup", function() {
-            //     var value = $(this).val().toLowerCase();
-            //     $("#category-table tr").filter(function() {
-            //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            //     });
-            // });
-        });
-
-    </script>
-@endsection
