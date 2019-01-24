@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('landing');
 });
 
 Auth::routes(['verify' => true]);
@@ -24,13 +24,7 @@ Route::get('/home', function() {
 
 //Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
 
-Route::get('/contact', function () {
-    return view('contact');
-});
-//Route::get('/home', function () {
-//    return view('home');
-//});
-Route::get('/home','HomeController@index');
+
 
 
 Route::get('/downloadPDF/{reserveernummer}','ProfielController@downloadPDF');
@@ -44,8 +38,9 @@ Route::get('/nota','ProfielController@nota');
 
 
 
-Route::get('/menukaart', 'MenuController@index');
-
+Route::get('/menukaart', function () {
+    return view('menukaart');
+});
 
 Route::get('/profiel', function () {
 
@@ -92,7 +87,12 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/tafels/create', 'TafelController@create');
     Route::get('/tafels/delete/{id}', 'TafelController@delete');
 
-
+Route::get('/contact', function () {
+    return view('contact');
+});
+Route::get('/home', function () {
+    return view('home');
+});
 });
 
 
@@ -105,6 +105,14 @@ Route::middleware('auth:web')->group(function() {
     Route::get('/gebruikers/unblock/{id}', 'UserController@unblock');
     Route::post('/gebruikers/create', 'UserController@create');
     Route::get('/gebruikers/delete/{id}', 'UserController@delete');
+
+
+    Route::get('/contact', function () {
+        return view('contact');
+    });
+    Route::get('/home', function () {
+        return view('home');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
