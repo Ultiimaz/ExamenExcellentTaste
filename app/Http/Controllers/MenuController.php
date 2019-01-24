@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 use App\Product;
+use App\ProductCategory;
 
 
 class MenuController
@@ -15,9 +16,9 @@ class MenuController
 
     public function index(){
         $producten = Product::all();
+        $categories = ProductCategory::all();
 
-
-        return view('menukaart', compact('producten'));
+        return view('menukaart', ['producten' => $producten, 'categories' => $categories]);
 
     }
 }
