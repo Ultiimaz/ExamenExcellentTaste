@@ -24,9 +24,11 @@
                                 <td>{{$product->productomschrijving}}</td>
                                 <td>€{{$product->prijs}}</td>
                             </tr>
-                            @endforeach
+                        @endforeach
                             </tbody>
                         </table>
+                        <p style="color: #ff7276;">Alle hoofdgerechten worden geserveerd met twee soorten groenten, gebakken aardappeltjes en frites</p>
+
 
                     </div>
                 </div>
