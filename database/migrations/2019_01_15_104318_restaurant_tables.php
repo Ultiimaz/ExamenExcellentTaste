@@ -19,12 +19,11 @@ class RestaurantTables extends Migration
             $table->integer('tijd');
             $table->string('aantalGasten', 50);
             $table->integer('klantnummer'); //fk
-
         });
 
         //klantgegevens
         Schema::create('users', function (Blueprint $table) {
-            $table->integer('klantnummer');
+            $table->integer('klantnummer')->unique()->nullable();
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();

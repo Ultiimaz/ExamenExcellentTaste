@@ -6,22 +6,21 @@ use App\Profiel;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 
 class ProfielController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return Response
+     * @return void
      */
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -53,6 +52,33 @@ class ProfielController extends Controller
         $user->save();
 
         return redirect('/profiel')->with('status', 'Profiel is aangepast');
+    }
+
+    /**
+     * Edit user password
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function resetPassword(Request $request, $id) {
+        $request->validate([
+            'currentpassword'=>'required',
+            'password'=> ['required', 'min:8', 'confirmed', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%@]).*$/'],
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
+
+        $knownhash = User::find($id);
+        $requestedpassword = $request['currentpassword'];
+
+        if (Hash::check($requestedpassword ,$knownhash->password))
+        {
+            $knownhash->password = Hash::make($request['password']);
+
+            return redirect('/profiel')->with('password', 'Wachtwoord is gewijzigd');
+        } else {
+            return redirect('/profiel')->with('password', 'Bestaande wachtwoord is incorrect');
+        }
+
     }
 
 

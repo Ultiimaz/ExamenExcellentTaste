@@ -17,7 +17,9 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::post('/register','Auth\RegisterController@create');
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/home', function() {
+    return view('profiel');
+});
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -36,8 +38,10 @@ Route::get('/profiel', function () {
 
     return view('/profiel', ['user' => $user]);
 
-});
+})->name('profiel');
+
 Route::post('/profiel/update/{id}', 'ProfielController@update');
+Route::post('/profiel/wachtwoordveranderen/{id}', 'ProfielController@resetPassword');
 //Route::middleware('auth:web')->group(function() {
 //    Route::get('/profiel', 'ProfielController@index');
 //    Route::post('/profiel/update/{id}', 'ProductController@update');
@@ -84,3 +88,7 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/gebruikers/create', 'UserController@create');
     Route::get('/gebruikers/delete/{id}', 'UserController@delete');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

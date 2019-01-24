@@ -33,14 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-
-    /**
-     * Random klantnummer a customer receives after registration
-     *
-     * @var string
-     */
-    public $klantnummer;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -53,14 +46,13 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Get a validator for an incoming registration request.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function create(Request $request)
-    {
-        $request->validate([
+    protected function validator(array $data) {
+        return Validator::make($data, [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%@]).*$/'],
             'achternaam' => ['required', 'string', 'max:255'],
@@ -72,19 +64,40 @@ class RegisterController extends Controller
             'telefoon' => ['required', 'string'],
             'g-recaptcha-response' => 'required|captcha'
         ]);
+    }
 
-        $klantnummer = $this->generateKlantnummer();
-
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\User
+     */
+    protected function create(array $data)
+    {
         $user = new User;
-        $user->fill($request->toArray());
-        $user->klantnummer =  $klantnummer;
-        $user->password = Hash::make($request['password']);
-        $user->telefoon = '06-'.$request['telefoon'];
+        $user->klantnummer = $this->generateKlantnummer();
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->achternaam = $data['achternaam'];
+        $user->voorvoegsel = $data['voorvoegsel'];
+        $user->voorletter = $data['voorletter'];
+        $user->plaats = $data['plaats'];
+        $user->postcode = $data['postcode'];
+        $user->telefoon = '06-'.$data['telefoon'];
+        $user->adres = $data['adres'];
         $user->save();
 
-        Mail::to($request['email'])->send(new Registration($klantnummer));
+        return $user;
+    }
 
-        return redirect('/login')->with('status', 'Registratie email is verzonden');
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath())->with('status', 'Verficatiemail is verzonden, check uw mail om de registratie af te ronden.');
     }
 
     /**
