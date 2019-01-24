@@ -14,9 +14,16 @@
 Route::get('/', function () {
     return view('home');
 });
-Auth::routes();
+
+Auth::routes(['verify' => true]);
+
 Route::post('/register','Auth\RegisterController@create');
+Route::get('/home', function() {
+    return view('profiel');
+});
+
 //Route::get('/home', 'HomeController@index')->name('home')->middleware('checkstatus');
+
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -46,8 +53,10 @@ Route::get('/profiel', function () {
 
     return view('/profiel', ['user' => $user]);
 
-});
+})->name('profiel');
+
 Route::post('/profiel/update/{id}', 'ProfielController@update');
+Route::post('/profiel/wachtwoordveranderen/{id}', 'ProfielController@resetPassword');
 //Route::middleware('auth:web')->group(function() {
 //    Route::get('/profiel', 'ProfielController@index');
 //    Route::post('/profiel/update/{id}', 'ProductController@update');
@@ -71,6 +80,9 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/producten/update/{id}', 'ProductController@update');
     Route::post('/producten/create', 'ProductController@create');
     Route::get('/producten/delete/{id}', 'ProductController@delete');
+
+    Route::post('/producten/categories/create', 'ProductController@categoriesCreate');
+    Route::get('/producten/categories/delete{id}', 'ProductController@categoriesDelete');
 });
 
 Route::middleware('auth:web')->group(function() {
@@ -94,3 +106,5 @@ Route::middleware('auth:web')->group(function() {
     Route::post('/gebruikers/create', 'UserController@create');
     Route::get('/gebruikers/delete/{id}', 'UserController@delete');
 });
+
+Route::get('/home', 'HomeController@index')->name('home');
