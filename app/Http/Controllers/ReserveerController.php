@@ -10,10 +10,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class ReserveerController extends Controller
 {
-        public function __construct()
-        {
 
-        }
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
 
     /**
      * Display a listing of the resource.

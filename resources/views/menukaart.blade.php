@@ -18,15 +18,17 @@
                             <th>Prijs</th>
                             </thead>
                             <tbody>
-                        @foreach($producten->sortByDesc('category_id') as $product)
+                        @foreach($producten->sortBy('category_id') as $product)
                             <tr>
-                                <td>{{$product->category_id}}</td>
+                                <td>{{$product->category()[0]->category_name}}</td>
                                 <td>{{$product->productomschrijving}}</td>
                                 <td>€{{$product->prijs}}</td>
                             </tr>
-                            @endforeach
+                        @endforeach
                             </tbody>
                         </table>
+                        <p style="color: #ff7276;">Alle hoofdgerechten worden geserveerd met twee soorten groenten, gebakken aardappeltjes en frites</p>
+
 
                     </div>
                 </div>

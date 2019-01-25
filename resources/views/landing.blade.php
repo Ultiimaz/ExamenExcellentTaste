@@ -1,6 +1,5 @@
 @include('layouts.head')
 
-
     <style>
         .landingpage{
             overflow-y:auto ;
@@ -66,6 +65,12 @@
             padding-right: 20px;
             border-radius: 6px;
         }
+        .contact, .menu h1, .over{
+            color: white;
+        }
+        .card{
+            border-radius: 6px;
+        }
         @media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
             .carouselBlock{
                 display: none;
@@ -82,18 +87,9 @@
                 display: none;
             }
         }
-
-
     </style>
 
 <body class="landingpage">
-
-
-
-
-
-
-
     <div class="row">
         <div class="col-md-12">
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
@@ -137,9 +133,6 @@
                             </div>
 
                         @endguest
-                        {{--<button type="button" href="{{ route('login') }}" class="btn">Inloggen</button>--}}
-                       {{--<button type="button" class="btn">Registreren</button>--}}
-
                     </div>
 
                 </div>
@@ -147,145 +140,80 @@
         </div>
     </div>
 <div class="container-fluid">
-<div class="row " style="height: 300px; background-color: #fff7e5; padding-top: 10px;">
+<div class="row over" style="min-height: 300px; background-color: #53697f; padding-top: 10px;">
     <div class="col-md-12">
         <h1 class="text-center">Over Excellent Taste</h1>
         <div class="row">
-            <div class="col-md-3">
-                Middageten
-            </div>
-            <div class="col-md-3">
-                Avondeten
-            </div>
-            <div class="col-md-3">
-                Service
-            </div>
-            <div class="col-md-3">
-                Alles er op en er aan
+            <div class="col-md-6 offset-3" style="text-align: center">
+                <p>Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar het merendeel heeft te lijden gehad van wijzigingen in een of andere vorm, door ingevoegde humor of willekeurig gekozen woorden die nog niet half geloofwaardig ogen. Als u een passage uit Lorum Ipsum gaat gebruiken dient u zich ervan te verzekeren dat er niets beschamends midden in de tekst verborgen zit. Alle Lorum Ipsum generators op Internet hebben de eigenschap voorgedefinieerde stukken te herhalen waar nodig zodat dit de eerste echte generator is op internet. Het gebruikt een woordenlijst van 200 latijnse woorden gecombineerd met een handvol zinsstructuur modellen om een Lorum Ipsum te genereren die redelijk overkomt. De gegenereerde Lorum Ipsum is daardoor altijd vrij van herhaling, ingevoegde humor of ongebruikelijke woorden etc.
+                Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar het merendeel heeft te lijden gehad van wijzigingen in een of andere vorm, door ingevoegde humor of willekeurig gekozen woorden die nog niet half geloofwaardig ogen. Als u een passage uit Lorum Ipsum gaat gebruiken dient u zich ervan te verzekeren dat er niets beschamends midden in de tekst verborgen zit. Alle Lorum Ipsum generators op Internet hebben de eigenschap voorgedefinieerde stukken te herhalen waar nodig zodat dit de eerste echte generator is op internet. Het gebruikt een woordenlijst van 200 latijnse woorden gecombineerd met een handvol zinsstructuur modellen om een Lorum Ipsum te genereren die redelijk overkomt. De gegenereerde Lorum Ipsum is daardoor altijd vrij van herhaling, ingevoegde humor of ongebruikelijke woorden etc.
+
+                </p>
             </div>
         </div>
-
-
     </div>
 </div>
-
-    <div class="row " style="min-height: 500px; background-color: #9abeff; padding-top: 10px; max-height: auto;">
+    <div class="row menu" style="min-height: 500px; background-color: #42586e; padding-top: 10px; max-height: auto;">
         <div class="col-md-12">
             <h1 class="text-center">Menu</h1>
             <div class="row">
                 <div class="col-md-12">
                     <div class="accordion" id="accordionExample">
+                        @foreach($categories->sortBy('category_id') as $category)
                         <div class="card">
                             <div class="card-header" id="headingOne">
                                 <h2 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Collapsible Group Item #1
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $category->category_id }}" aria-expanded="true" aria-controls="collapse{{ $category->category_id }}">
+                                        {{$category->category_name}}
                                     </button>
                                 </h2>
                             </div>
+                            <div id="collapse{{ $category->category_id }}" class="collapse show" data-collapse="{{ $category->category_id }}" aria-labelledby="heading{{ $category->category_id }}" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <table>
+                                    @foreach($producten->sortBy('category_id') as $product)
 
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    @if((int)$product->category_id === $category->category_id )
+                                        <tr>
+                                            <td style="width: 800px;">{{$product->productomschrijving}}</td>
+                                            <td>€{{$product->prijs}}</td>
+                                        </tr>
+                                            @endif
+                                    @endforeach
+                                    </table>
+                                @if($category->category_id === 2 )
+                                            <p>Alle hoofdgerechten worden geserveerd met twee soorten groenten, gebakken aardappeltjes en frites</p>
+                                            @endif
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Collapsible Group Item #2
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Collapsible Group Item #3
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                </div>
-                            </div>
-                        </div> <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Collapsible Group Item #3
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                </div>
-                            </div>
-                        </div> <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Collapsible Group Item #3
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                </div>
-                            </div>
-                        </div> <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Collapsible Group Item #3
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
+    <div class="row contact" style="min-height: 200px; background-color: #34495e; padding-top: 10px;">
+        <div class="col-md-12">
+            <h1 class="text-center">Contact</h1>
+            <div class="row">
+                <div class="col-md-2 offset-md-4">
+                    Adres: Hofstraat 1 <br />
+                    Postcode: 7311 KN <br />
+                    Plaats: Apeldoorn<br /><br />
+                    Telefoonnummer: 055 378 2473<br />
+                    Email: Excellent-Taste@gmail.com <br /><br />
 
-
-    <div class="row " style="height: 200px; background-color: #ffa874; padding-top: 10px;">
-    <div class="col-md-12">
-        <h1 class="text-center">Contact</h1>
-        <div class="row">
-            <div class="col-md-3">
-                Middageten
-            </div>
-            <div class="col-md-3">
-                Avondeten
-            </div>
-            <div class="col-md-3">
-                Service
-            </div>
-            <div class="col-md-3">
-                Alles er op en er aan
+                </div>
+                <div class="row">
+                <div class="col-md-7 offset-md-4">
+                    Openingstijden:<br />
+                    Maandag tot zondag kunt u bij ons terecht van 10:00 tot 23:00 uur <br />
+                </div>
+                </div>
             </div>
         </div>
-
-
     </div>
-</div>
 </div>
 </body>
+
