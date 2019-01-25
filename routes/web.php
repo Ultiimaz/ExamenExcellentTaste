@@ -48,7 +48,7 @@ Route::middleware('auth:web')->group(function()
     Route::get('/bestellingen/delete/{id}', 'OrderController@delete');
 
     Route::post('/producten/categories/create', 'ProductController@categoriesCreate');
-    Route::get('/producten/categories/delete{id}', 'ProductController@categoriesDelete');
+    Route::get('/producten/categories/delete/{id}', 'ProductController@categoriesDelete');
 
     Route::get('/tafels', 'TafelController@index');
     Route::post('/tafels/update/{id}', 'TafelController@update');
