@@ -110,9 +110,16 @@ class ProductController extends Controller
      * @return Response
      */
     public function categoriesDelete($id) {
-        $category = ProductCategory::find($id);
-        $category->delete();
 
-        return redirect('/producten')->with('status', 'Categorie is verwijderd');
+        $category = ProductCategory::where('category_id', $id)->get();
+        
+        if (!$category->first()->products()) {
+
+            $category[0]->delete();
+
+            return redirect('/producten')->with('status', 'Categorie is verwijderd');
+        } else {
+            return redirect('/producten')->with('status', 'Verwijder eerst de producten met deze categorie');
+        }
     }
 }
