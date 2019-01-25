@@ -31,12 +31,16 @@ Route::get('/profiel', function () {
 Route::post('/reserveer','ReserveerController@create')->name('reserveer');
 Route::middleware('auth:web')->group(function()
 {
-    Route::get('/reserveer',function() {return view('reservering.create',['tables'=>\App\TableData::all()]);})->name('reserveercreate');
+    Route::get('/reserveer',function() {return view('reservering.create');})->name('reserveercreate');
 //    Route::post('/reserveer/create','ReserveerController@create');
     Route::post('/reserveer/update','ReserveerController@update');
     Route::get('/reserveer/delete/{id}','ReserveerController@delete');
-    Route::post('/tables','ReserveerController@tables');
+    Route::get('reserveer/list','ReserveerController@index');
+    Route::get('/reserveer/update/{id}',function($id){
+        return view('reservering.update');
 
+});
+    Route::post('/tables','ReserveerController@tables');
 
     Route::get('/producten', 'ProductController@index');
     Route::post('/producten/update/{id}', 'ProductController@update');
@@ -48,7 +52,7 @@ Route::middleware('auth:web')->group(function()
     Route::get('/bestellingen/delete/{id}', 'OrderController@delete');
 
     Route::post('/producten/categories/create', 'ProductController@categoriesCreate');
-    Route::get('/producten/categories/delete{id}', 'ProductController@categoriesDelete');
+    Route::get('/producten/categories/delete/{id}', 'ProductController@categoriesDelete');
 
     Route::get('/tafels', 'TafelController@index');
     Route::post('/tafels/update/{id}', 'TafelController@update');
