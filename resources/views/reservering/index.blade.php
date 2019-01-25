@@ -14,18 +14,17 @@
 
 
 @if(!empty($reserveringen->get()->first()))
-                            <table class="table table col-12">
-                                <thead>
-                                <tr>
-                                    <th scope="col">reserveernummer</th>
-                                    <th scope="col">datum</th>
-                                    <th scope="col">tijd</th>
-                                    <th scope="col">tafelnummer(s)</th>
-                                    <th scope="col">aanpassen</th>
-                                    <th scope="col">annuleren</th>
-                                </tr>
-                                </thead>
-
+                             <table class="table table col-12">
+                                    <thead>
+                                         <tr>
+                                            <th scope="col">reserveernummer</th>
+                                            <th scope="col">datum</th>
+                                            <th scope="col">tijd</th>
+                                            <th scope="col">tafelnummer(s)</th>
+                                            <th scope="col">aanpassen</th>
+                                            <th scope="col">annuleren</th>
+                                        </tr>
+                                    </thead>
                                 <tbody>
     @foreach($reserveringen->get() as $reservering)
         <tr>
@@ -33,7 +32,6 @@
             <td>{{$reservering->datum}}</td>
             <td>{{$reservering->tijd}}</td>
             <td>@foreach(\App\TableReservation::Where('reserveernummer',$reservering->reserveernummer)->get() as $tafel)
-                    {{--{{dd($tafel)}}--}}
                     <a class="badge badge-pill badge-danger">tafel: {{$tafel->tafelnummer}}</a>
                 @endforeach
             </td>
@@ -45,11 +43,11 @@
         er zijn momenteel geen reserveringen
 @endif
 
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

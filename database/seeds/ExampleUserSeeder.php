@@ -28,7 +28,6 @@ class ExampleUserSeeder extends Seeder
             'email_verified_at'=> '2019-01-23 00:00:00',
         ]);
         //user
-        $faker = Faker::create();
 
         $faker = Faker::create();
         DB::table('users')->insert([
