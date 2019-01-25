@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/login';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -90,16 +90,23 @@ class RegisterController extends Controller
         return $user;
     }
 
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
 
+        $this->guard()->login($user);
+
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath())->with('status', 'Verficatiemail is verzonden, check uw mail om de registratie af te ronden.');
     }
-
 
     /**
      * Create random klantnummer

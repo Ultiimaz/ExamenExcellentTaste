@@ -30,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/profiel';
+    protected $redirectTo = '/home';
 
     /**
      * Get the login username to be used by the controller.
