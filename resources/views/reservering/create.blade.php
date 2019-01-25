@@ -151,7 +151,8 @@
                                             <option class="form-control" value="7">7</option>
                                             <option class="form-control" value="8">8</option>
                                         </select>
-                                        <textarea id="dieetwensen" name="dieetwensen" placeholder="vul hier uw dieetwensen in"></textarea>
+                                        dieetwensen
+                                        <textarea id="dieetwensen" class="form-control" name="dieetwensen" placeholder="vul hier uw dieetwensen in"></textarea>
                                     </div>
                                     <div class="col-md-8 pt-5">
                                         <input type="submit" class="btn btn-primary" />
