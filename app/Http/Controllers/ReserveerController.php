@@ -79,7 +79,7 @@ private $volgnummer = 0;
         $reservation = new Reservation;
         if($request->has('tafel2') )
         {
-            $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'),$request['tafel2'],$request['tafel2']);
+            $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'),$request['tafel1'],$request['tafel2']);
         }else
         {
             $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'), $request->input('tafel1'));
