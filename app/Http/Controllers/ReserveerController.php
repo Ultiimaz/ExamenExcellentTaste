@@ -26,12 +26,6 @@ class ReserveerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $reserveringen =Reservation::where('klantnummer',Auth::user()->klantnummer);
-
-        return view('reservering.index',['reserveringen' =>$reserveringen]);
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -120,59 +114,7 @@ private $volgnummer = 0;
      */
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        if(!$request->input('aantal_gasten') )
-        {
-            return back()->withInput()->with('status',"U moet eerst aantal gasten invullen!");
-        }
-        if($request->input('aantal_gasten') == 0)
-        {
-            return back()->withInput()->with('status',"U moet minimaal 1 gast invullen bij aantal gasten!");
-        }
 
-        $reservation = Reservation::where('reserveernummer',$id);
-        if($request->has('tafel2') )
-        {
-            $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'),$request['tafel2'],$request['tafel2']);
-        }else
-        {
-            $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'), $request->input('tafel1'));
-        }
-        $reservation->aantalGasten = intval($request->input('aantal_gasten'));
-        $reservation->klantnummer = Auth::user()->klantnummer;
-        $reservation->datum = Carbon::parse($request['datum']);
-        $reservation->dieetwensen = $request['dieetwensen'];
-        $reservation->tijd = $request['time'];
-
-        DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel1'))->update(
-            [
-                'tijdin'=> Carbon::parse($request->input('datum')),
-                'tijduit'=> Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time'))),
-                'reserveernummer' => $reservation->reserveernummer
-            ]
-        );
-        if($request->has('tafel2'))
-        {
-            DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel2'))->update(
-                [
-                    'tijdin'=> Carbon::parse($request->input('datum')),
-                    'tijduit'=> Carbon::parse($request->input('datum'))->addMinute(intval($request->input('time'))),
-                    'reserveernummer' => $reservation->reserveernummer
-                ]
-            );
-        }
-
-        $reservation->save();
-        return response()->json('de reservering is geplaatst!');
-    }
 
     public function tables(Request $request)
     {
@@ -193,28 +135,6 @@ private $volgnummer = 0;
             }
         return response()->json($col->toArray());
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete($id)
-    {
-        $user = Auth::user();
-        $reservering = Reservation::where('reserveernummer', $id);
-        $tafels = TableReservation::where('reserveernummer',$id)->get();
 
-        foreach($tafels as $table)
-        {
-            $table->tijdin = Carbon::createFromDate('1970-01-01');
-            $table->tijduit = Carbon::createFromDate('1970-01-01');
-            $table->save();
-        }
-        if($reservering->first()->klantnummer== $user->klantnummer)
-        {
-            $reservering->delete();
-        }
-        return back()->with('status','verwijderen succesvol');
-    }
+
 }
