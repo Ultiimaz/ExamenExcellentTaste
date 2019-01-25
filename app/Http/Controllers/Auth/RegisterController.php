@@ -112,7 +112,7 @@ class RegisterController extends Controller
      * Create random klantnummer
      */
     protected function generateKlantnummer() {
-        $number = substr( rand() * 900000 + 100000, 0, 5 );
+        $number = rand(pow(10, 5-1), pow(10,5 )-1);;
 
         if ($this->checkIfExists($number)) {
             return $this->generateKlantnummer();
