@@ -18,7 +18,6 @@
                         <table id="product-table" class="table">
                             <thead>
                             <tr>
-                                <th scope="col">Klantnummer</th>
                                 <th scope="col">Reserveernummer</th>
                                 <th scope="col">Productnummer</th>
                                 <th scope="col">Aantal</th>
@@ -30,7 +29,7 @@
                             @foreach( $orders as $order)
                                 <tr>
                                     <td>{{$order->reserveernummer}}</td>
-                                    <td>{{$order->orderpick()->first()->klantnummer}}</td>
+{{--                                    <td>{{$order->orderpick()->first()->klantnummer}}</td>--}}
                                     <td>{{$order->productnummer}}</td>
                                     <td>{{$order->aantalbesteld}}</td>
 {{--                                    <td>{{$order->aantalbesteld * $producten->product()->first()->prijs}}</td>--}}
