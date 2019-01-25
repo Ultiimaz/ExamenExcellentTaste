@@ -25,6 +25,7 @@ class ExampleUserSeeder extends Seeder
             'plaats' => $faker->city(),
             'status'=> '2',
             'email' => 'beheerder@milton.nl',
+            'email_verified_at'=> '2019-01-23 00:00:00',
         ]);
         //user
         $faker = Faker::create();
@@ -41,6 +42,8 @@ class ExampleUserSeeder extends Seeder
             'plaats' => $faker->city(),
             'status'=> '1',
             'email' => 'klant@kramp.nl',
+            'email_verified_at'=> '2019-01-23 00:00:00',
+
         ]);
     }
 }

@@ -18,7 +18,9 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
+        $this->middleware(['auth','verified']);
+
     }
 
     /**
@@ -28,10 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        return view('layouts/dashboard');
-        //return view('home');
         $user = Auth::user();
-
 
         $reserveringen = Reservation::where('klantnummer', $user->klantnummer)->get();
         return view('home', ['user' => $user, 'reserveringen' => $reserveringen]);
