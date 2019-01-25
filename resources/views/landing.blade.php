@@ -65,6 +65,12 @@
             padding-right: 20px;
             border-radius: 6px;
         }
+        .contact, .menu h1, .over{
+            color: white;
+        }
+        .card{
+            border-radius: 6px;
+        }
         @media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
             .carouselBlock{
                 display: none;
@@ -127,9 +133,6 @@
                             </div>
 
                         @endguest
-                        {{--<button type="button" href="{{ route('login') }}" class="btn">Inloggen</button>--}}
-                       {{--<button type="button" class="btn">Registreren</button>--}}
-
                     </div>
 
                 </div>
@@ -137,26 +140,20 @@
         </div>
     </div>
 <div class="container-fluid">
-<div class="row " style="height: 300px; background-color: #fff7e5; padding-top: 10px;">
+<div class="row over" style="min-height: 300px; background-color: #53697f; padding-top: 10px;">
     <div class="col-md-12">
         <h1 class="text-center">Over Excellent Taste</h1>
         <div class="row">
-            <div class="col-md-3">
-                Middageten
-            </div>
-            <div class="col-md-3">
-                Avondeten
-            </div>
-            <div class="col-md-3">
-                Service
-            </div>
-            <div class="col-md-3">
-                Alles er op en er aan
+            <div class="col-md-6 offset-3" style="text-align: center">
+                <p>Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar het merendeel heeft te lijden gehad van wijzigingen in een of andere vorm, door ingevoegde humor of willekeurig gekozen woorden die nog niet half geloofwaardig ogen. Als u een passage uit Lorum Ipsum gaat gebruiken dient u zich ervan te verzekeren dat er niets beschamends midden in de tekst verborgen zit. Alle Lorum Ipsum generators op Internet hebben de eigenschap voorgedefinieerde stukken te herhalen waar nodig zodat dit de eerste echte generator is op internet. Het gebruikt een woordenlijst van 200 latijnse woorden gecombineerd met een handvol zinsstructuur modellen om een Lorum Ipsum te genereren die redelijk overkomt. De gegenereerde Lorum Ipsum is daardoor altijd vrij van herhaling, ingevoegde humor of ongebruikelijke woorden etc.
+                Er zijn vele variaties van passages van Lorem Ipsum beschikbaar maar het merendeel heeft te lijden gehad van wijzigingen in een of andere vorm, door ingevoegde humor of willekeurig gekozen woorden die nog niet half geloofwaardig ogen. Als u een passage uit Lorum Ipsum gaat gebruiken dient u zich ervan te verzekeren dat er niets beschamends midden in de tekst verborgen zit. Alle Lorum Ipsum generators op Internet hebben de eigenschap voorgedefinieerde stukken te herhalen waar nodig zodat dit de eerste echte generator is op internet. Het gebruikt een woordenlijst van 200 latijnse woorden gecombineerd met een handvol zinsstructuur modellen om een Lorum Ipsum te genereren die redelijk overkomt. De gegenereerde Lorum Ipsum is daardoor altijd vrij van herhaling, ingevoegde humor of ongebruikelijke woorden etc.
+
+                </p>
             </div>
         </div>
     </div>
 </div>
-    <div class="row " style="min-height: 500px; background-color: #5bc0de; padding-top: 10px; max-height: auto;">
+    <div class="row menu" style="min-height: 500px; background-color: #42586e; padding-top: 10px; max-height: auto;">
         <div class="col-md-12">
             <h1 class="text-center">Menu</h1>
             <div class="row">
@@ -196,24 +193,24 @@
             </div>
         </div>
     </div>
-    <div style="height: 200px; background-color: #d9534f; padding-top: 10px;">
-        <div class="row">
-            <div class="col text-center">
-                <h3>Contact</h3>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div class="col">
-                Adres: Hofstraat 1 <br />
-                Postcode: 7311 KN <br />
-                Plaats: Apeldoorn<br /><br />
-                Telefoonnummer: 055 378 2473<br />
-                Email: Excellent-Taste@gmail.com <br /><br />
-            </div>
-            <div class="col text-center">
-                Openingstijden:<br />
-                Ma/Vrij:  16:00-22:00<br />
-                Za/Zo:    12:00-23:00
+    <div class="row contact" style="min-height: 200px; background-color: #34495e; padding-top: 10px;">
+        <div class="col-md-12">
+            <h1 class="text-center">Contact</h1>
+            <div class="row">
+                <div class="col-md-2 offset-md-4">
+                    Adres: Hofstraat 1 <br />
+                    Postcode: 7311 KN <br />
+                    Plaats: Apeldoorn<br /><br />
+                    Telefoonnummer: 055 378 2473<br />
+                    Email: Excellent-Taste@gmail.com <br /><br />
+
+                </div>
+                <div class="row">
+                <div class="col-md-7 offset-md-4">
+                    Openingstijden:<br />
+                    Maandag tot zondag kunt u bij ons terecht van 10:00 tot 23:00 uur <br />
+                </div>
+                </div>
             </div>
         </div>
     </div>
