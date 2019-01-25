@@ -78,6 +78,16 @@ Route::middleware('auth:web')->group(function() {
 });
 
 Route::middleware('auth:web')->group(function() {
+    Route::get('/bestellingen', 'OrderController@index');
+    Route::post('/bestellingen/update/{id}', 'OrderController@update');
+    Route::post('/bestellingen/create', 'OrderController@create');
+    Route::get('/bestellingen/delete/{id}', 'OrderController@delete');
+
+//    Route::post('/producten/categories/create', 'ProductController@categoriesCreate');
+//    Route::get('/producten/categories/delete{id}', 'ProductController@categoriesDelete');
+});
+
+Route::middleware('auth:web')->group(function() {
 
     Route::get('/tafels', 'TafelController@index');
     Route::post('/tafels/update/{id}', 'TafelController@update');
