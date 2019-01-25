@@ -43,6 +43,10 @@ Route::middleware('auth:web')->group(function()
     Route::post('/producten/create', 'ProductController@create');
     Route::get('/producten/delete/{id}', 'ProductController@delete');
 
+  Route::get('/bestellingen', 'OrderController@index');
+    Route::post('/bestellingen/create', 'OrderController@create');
+    Route::get('/bestellingen/delete/{id}', 'OrderController@delete');
+
     Route::post('/producten/categories/create', 'ProductController@categoriesCreate');
     Route::get('/producten/categories/delete{id}', 'ProductController@categoriesDelete');
 
