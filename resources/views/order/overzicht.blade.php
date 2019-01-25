@@ -20,8 +20,9 @@
                             <tr>
                                 <th scope="col">Klantnummer</th>
                                 <th scope="col">Reserveernummer</th>
-                                <th scope="col">Prijs</th>
-                                <th scope="col">Categorie</th>
+                                <th scope="col">Productnummer</th>
+                                <th scope="col">Aantal</th>
+                                {{--<th scope="col">Prijs</th>--}}
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -29,9 +30,11 @@
                             @foreach( $orders as $order)
                                 <tr>
                                     <td>{{$order->reserveernummer}}</td>
-
                                     <td>{{$order->orderpick()->first()->klantnummer}}</td>
                                     <td>{{$order->productnummer}}</td>
+                                    <td>{{$order->aantalbesteld}}</td>
+{{--                                    <td>{{$order->aantalbesteld * $producten->product()->first()->prijs}}</td>--}}
+                                    <td><a href="/bestellingen/delete/{{$order->timestamp }}" class="btn label label-red" ><i class="m-r-5 font-14 mdi mdi-delete"></i></a></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -43,8 +46,8 @@
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Product toevoegen</h4>
-                    <form method="post" action="/producten/create">
+                    <h4 class="card-title">Bestelling maken</h4>
+                    <form method="post" action="/bestellingen/create">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-8">
@@ -59,37 +62,45 @@
                                 </select>
                                 {{--<td><input id="aantalbe" data-product="{{ $product->productnummer }}" type="text" class="form-control-plaintext product " value="{{ $product->productomschrijving }}" name="productomschrijving"></td>--}}
 
-                                @if ($errors->has('category'))
+                                @if ($errors->has('productnummer'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('category') }}</strong>
+                                        <strong>{{ $errors->first('productnummer') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-8">
-                                <select class="form-control" name="productnummer" id="productnummer">
-                                    @if($reservering->count() > 0)
-                                        @foreach($producten as $product)
-                                            <option value="{{$product->productnummer}}">{{$product->productomschrijving}}</option>
+
+                                <select class="form-control" name="reserveernummer" id="reserveernummer">
+                                    @if($reserveringen->count() > 0)
+                                        @foreach($reserveringen as $reservering)
+
+                                            <option value="{{$reservering->reserveernummer}}">{{$reservering->reserveernummer}}</option>
                                         @endForeach
                                     @else
-                                        Geen producten gevonden
+                                        Geen reserveringen gevonden.
                                     @endif
                                 </select>
                                 {{--<td><input id="aantalbe" data-product="{{ $product->productnummer }}" type="text" class="form-control-plaintext product " value="{{ $product->productomschrijving }}" name="productomschrijving"></td>--}}
 
-                                @if ($errors->has('category'))
+                                @if ($errors->has('productnummer'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('category') }}</strong>
+                                        <strong>{{ $errors->first('productnummer') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                Aantal besteld:
+                                <input id="aantalbe" type="number" class="form-control"   name="aantalbesteld">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-md-8">
-                                <button class="btn btn-success">Product toevoegen</button>
+                                <button type="submit" class="btn btn-success">Bestelling toevoegen</button>
                             </div>
                         </div>
                     </form>

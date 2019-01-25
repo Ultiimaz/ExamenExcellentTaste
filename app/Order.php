@@ -8,7 +8,7 @@ class Order extends Model
 {
 
     protected $table = 'bestellingen';
-    protected $primaryKey = ['device', 'timestamp', 'productnummer'];
+    protected $primaryKey = ['device', 'timestamp'];
     public $incrementing = false;
     public $timestamps = false;
     protected $fillable = ['prijsbetaald, aantalbesteld, device, timestamp, productnummer'];
@@ -21,10 +21,6 @@ class Order extends Model
         return $this->hasOne('App\Product', 'productnummer', 'productnummer')->get();
     }
 
-    public function getReserveernummer(){
-//        return $this->hasOne('App\Reservation', 'reserveer', 'klantnummer')->get();
-
-    }
 
 }
 

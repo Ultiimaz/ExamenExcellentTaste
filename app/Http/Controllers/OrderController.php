@@ -32,7 +32,7 @@ class OrderController extends Controller
             $product = Product::all();
             $reservering = Reservation::all();
 
-            return view('order.overzicht', ['orders' => $order, 'producten' =>$product, 'reservering' => $reservering] );
+            return view('order.overzicht', ['orders' => $order, 'producten' =>$product, 'reserveringen' => $reservering] );
         } else {
             return redirect('/home');
         }
@@ -44,35 +44,22 @@ class OrderController extends Controller
      * @return Response
      */
     public function create(Request $request) {
+        $request->validate([
+            'productnummer'=>'required',
+            'reserveernummer'=>'required',
+            'aantalbesteld'=>'required',
+        ]);
+
+
         $order = new Order();
         $order->device = 1;
         $order->timestamp = Carbon::now();
-        $order->productnummer = $request->get('aantalbesteld');
+        $order->productnummer = $request->get('productnummer');
         $order->aantalbesteld = $request->input('aantalbesteld');
+        $order->reserveernummer = $request->input('reserveernummer');
         $order->save();
 
-        return redirect('/bestellingen')->with('status', 'Categorie is toegevoegd');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'productomschrijving'=>'required'
-        ]);
-
-        $product = Product::find($id);
-        $product->productomschrijving = $request->get('productomschrijving');
-        $product->prijs = $request->get('prijs');
-        $product->category_id = $request->get('category');
-        $product->save();
-
-        return redirect('/producten')->with('status', 'Product is aangepast');
+        return redirect('/bestellingen')->with('status', 'Bestelling is toegevoegd');
     }
 
     /**
@@ -83,10 +70,11 @@ class OrderController extends Controller
      */
     public function delete($id)
     {
-        $product = Product::find($id);
-        $product->delete();
+//        $product = Order::find($id);
+         Order::where('timestamp',$id)->delete();
+//        $product->delete();
 
-        return redirect('/producten')->with('status', 'Product is verwijderd');
+        return redirect('/bestellingen')->with('status', 'Bestelling is verwijderd');
     }
 }
 
