@@ -70,7 +70,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->productomschrijving = $request->get('productomschrijving');
         $product->prijs = $request->get('prijs');
-        $product->category_id = $request->get('category');
         $product->save();
 
         return redirect('/producten')->with('status', 'Product is aangepast');
@@ -112,7 +111,7 @@ class ProductController extends Controller
     public function categoriesDelete($id) {
 
         $category = ProductCategory::where('category_id', $id)->get();
-        
+
         if (!$category->first()->products()) {
 
             $category[0]->delete();
