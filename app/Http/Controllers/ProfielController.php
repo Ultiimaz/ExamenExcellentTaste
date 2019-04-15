@@ -74,11 +74,13 @@ class ProfielController extends Controller
         ]);
 
         $knownhash = User::find($id);
-        $requestedpassword = $request['currentpassword'];
-
+        $requestedpassword = $request->get('currentpassword');
+        
         if (Hash::check($requestedpassword ,$knownhash->password))
         {
-            $knownhash->password = Hash::make($request['password']);
+            $knownhash->password = Hash::make($request->get('password'));
+
+            $knownhash->save();
 
             return redirect('/profiel')->with('password', 'Wachtwoord is gewijzigd');
         } else {

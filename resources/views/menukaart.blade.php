@@ -2,7 +2,7 @@
 
 @section('page')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="d-md-flex align-items-center">
@@ -11,20 +11,24 @@
                         </div>
                     </div>
                     <div class="row">
+                        <table class="table table-striped">
+                            <thead>
+                            <th></th>
+                            <th>Gerecht</th>
+                            <th>Prijs</th>
+                            </thead>
+                            <tbody>
+                        @foreach($producten->sortBy('category_id') as $product)
+                            <tr>
+                                <td>{{$product->category()[0]->category_name}}</td>
+                                <td>{{$product->productomschrijving}}</td>
+                                <td>€{{$product->prijs}}</td>
+                            </tr>
+                        @endforeach
+                            </tbody>
+                        </table>
+                        <p style="color: #ff7276;">Alle hoofdgerechten worden geserveerd met twee soorten groenten, gebakken aardappeltjes en frites</p>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-md-flex align-items-center">
-                        <div>
-                            <h3 class="card-title">Kaart</h3>
-                        </div>
-                    </div>
-                    <div class="row">
 
                     </div>
                 </div>

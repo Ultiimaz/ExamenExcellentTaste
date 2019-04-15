@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -65,7 +70,6 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->productomschrijving = $request->get('productomschrijving');
         $product->prijs = $request->get('prijs');
-        $product->category_id = $request->get('category');
         $product->save();
 
         return redirect('/producten')->with('status', 'Product is aangepast');
@@ -105,9 +109,16 @@ class ProductController extends Controller
      * @return Response
      */
     public function categoriesDelete($id) {
-        $category = ProductCategory::find($id);
-        $category->delete();
 
-        return redirect('/producten')->with('status', 'Categorie is verwijderd');
+        $category = ProductCategory::where('category_id', $id)->get();
+
+        if (!$category->first()->products()) {
+
+            $category[0]->delete();
+
+            return redirect('/producten')->with('status', 'Categorie is verwijderd');
+        } else {
+            return redirect('/producten')->with('status', 'Verwijder eerst de producten met deze categorie');
+        }
     }
 }

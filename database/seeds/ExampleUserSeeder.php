@@ -25,9 +25,9 @@ class ExampleUserSeeder extends Seeder
             'plaats' => $faker->city(),
             'status'=> '2',
             'email' => 'beheerder@milton.nl',
+            'email_verified_at'=> '2019-01-23 00:00:00',
         ]);
         //user
-        $faker = Faker::create();
 
         $faker = Faker::create();
         DB::table('users')->insert([
@@ -41,6 +41,52 @@ class ExampleUserSeeder extends Seeder
             'plaats' => $faker->city(),
             'status'=> '1',
             'email' => 'klant@kramp.nl',
+            'email_verified_at'=> '2019-01-23 00:00:00',
+
         ]);
+        $faker = Faker::create();
+        DB::table('users')->insert([
+            'password'=> bcrypt('password'),
+            'klantnummer' => 99657,
+            'achternaam' => 'KOEKJE',
+            'voorletter' => 'J',
+            'voorvoegsel'=> '',
+            'adres' => $faker->address(),
+            'postcode' => '7d',
+            'plaats' => $faker->city(),
+            'status'=> '1',
+            'email' => 'klant@koekje.nl',
+            'email_verified_at'=> '2019-01-23 00:00:00',
+
+        ]);
+        $faker = Faker::create();
+        DB::table('users')->insert([
+            'password'=> bcrypt('password'),
+            'klantnummer' => 66998,
+            'achternaam' => 'Pasman',
+            'voorletter' => 'J',
+            'voorvoegsel'=> '',
+            'adres' => $faker->address(),
+            'postcode' => '7d',
+            'plaats' => $faker->city(),
+            'status'=> '1',
+            'email' => 'klant@pasman.nl',
+            'email_verified_at'=> '2019-01-23 00:00:00',
+        ]);
+          $faker = Faker::create();
+        DB::table('users')->insert([
+            'password'=> bcrypt('password'),
+            'klantnummer' => 12578,
+            'achternaam' => 'Heer',
+            'voorletter' => 'J',
+            'voorvoegsel'=> '',
+            'adres' => $faker->address(),
+            'postcode' => '7d',
+            'plaats' => $faker->city(),
+            'status'=> '1',
+            'email' => 'klant@heer.nl',
+            'email_verified_at'=> '2019-01-23 00:00:00',
+        ]);
+
     }
 }

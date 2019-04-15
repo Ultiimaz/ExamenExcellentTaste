@@ -14,6 +14,11 @@ class TafelController extends Controller
      *
      * @return Response
      */
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
+
     public function index()
     {
         if (Auth::user()->status == 2){

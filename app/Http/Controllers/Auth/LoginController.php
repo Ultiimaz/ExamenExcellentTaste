@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-use Auth;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -29,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/profiel';
+    protected $redirectTo = '/home';
 
     /**
      * Get the login username to be used by the controller.
@@ -41,23 +43,26 @@ class LoginController extends Controller
         return 'klantnummer';
     }
 
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
     public function authenticated(Request $request, $user) {
-        return redirect('/profiel');
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->status == 1 || $user->status == 2) {
+                return redirect('/profiel');
+            } else {
+                Auth::logout();
+
+                return redirect('/login');
+            }
+        }
     }
   
     public function logout(Request $request) {
         Auth::logout();
-        return redirect('/home');
+        return redirect('/');
     }
 }

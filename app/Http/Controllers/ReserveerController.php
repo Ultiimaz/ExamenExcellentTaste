@@ -8,20 +8,24 @@ use Illuminate\Http\Request;
 use App\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
-use Symfony\Component\Console\Helper\Table;
-
 class ReserveerController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('reservering.index');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -29,15 +33,20 @@ class ReserveerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    protected function generateReserveernummer() {
-        $number = substr( rand() * 900000 + 100000, 0, 5 );
+private $volgnummer = 0;
+    protected function generateReserveernummerWithDatum($date,$tafel1 = 00,$tafel2 = 00)
+    {
 
+
+        $number = $date.$tafel1.$tafel2. $this->volgnummer;
         if ($this->checkIfExists($number)) {
-            return $this->generateReserveernummer();
+                $this->volgnummer++;
+        return $number;
         }
 
-        return intval($number);
+        return $number;
     }
+
 
     /**
      * Check if klantnummer exists
@@ -45,6 +54,9 @@ class ReserveerController extends Controller
     protected function checkIfExists($number) {
         return DB::table('reserveringen')->where('reserveernummer', $number)->exists();
     }
+
+
+
 
     public function create(Request $request)
     {
@@ -56,15 +68,21 @@ class ReserveerController extends Controller
         {
             return back()->withInput()->with('status',"U moet minimaal 1 gast invullen bij aantal gasten!");
         }
-        if(!$request->input('tafel1') )
-        {
-            return back()->withInput()->with('status',"U moet minimaal 1 tafel kiezen!");
-        }
+
+
         $reservation = new Reservation;
-        $reservation->reserveernummer = $this->generateReserveernummer();
+        if($request->has('tafel2') )
+        {
+            $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'),$request['tafel1'],$request['tafel2']);
+        }else
+        {
+            $reservation->reserveernummer = $this->generateReserveernummerWithDatum(Carbon::parse($request['datum'])->format('Ymd'), $request->input('tafel1'));
+        }
         $reservation->aantalGasten = intval($request->input('aantal_gasten'));
         $reservation->klantnummer = Auth::user()->klantnummer;
-        $reservation->datum = $request['datum'];
+        $reservation->datum = Carbon::parse($request['datum']);
+        $reservation->dieetwensen = $request['dieetwensen'];
+        $reservation->tijd = $request['time'];
 
         DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel1'))->update(
              [
@@ -73,7 +91,8 @@ class ReserveerController extends Controller
                 'reserveernummer' => $reservation->reserveernummer
              ]
          );
-         if($request->has('tafel2')){
+         if($request->has('tafel2'))
+         {
              DB::table('tafelreserveringen')->where('tafelnummer',$request->input('tafel2'))->update(
                  [
                      'tijdin'=> Carbon::parse($request->input('datum')),
@@ -84,7 +103,7 @@ class ReserveerController extends Controller
          }
 
          $reservation->save();
-        return redirect('reserveer')->with('status','de reservering is geplaatst!');
+        return response()->json('de reservering is geplaatst!');
     }
 
     /**
@@ -95,27 +114,27 @@ class ReserveerController extends Controller
      */
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+
+    public function tables(Request $request)
     {
-        //
+        $all = TableReservation::all();
+        $col = $all;
+         $table =DB::table('tafelreserveringen')
+             ->whereDate('tijdin' ,'<=',Carbon::parse($request->input('datum')))
+             ->whereDate('tijduit','>=',Carbon::parse($request->input('datum')));
+            foreach($col as $collection)
+            {
+                foreach($table->get() as $entity)
+                {
+                    if($entity->tafelnummer == $collection->tafelnummer)
+                    {
+                        $col->forget($entity->tafelnummer - 1);
+                    }
+                }
+            }
+        return response()->json($col->toArray());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete($id)
-    {
-        return Response()->json("fdjgklkfg");
-//        return Route('overzicht');
-    }
+
 }
